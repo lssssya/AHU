@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>不忘_登陆_测试</title>
+	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+	<script src="/lib/jquery/jquery.js"></script>
+</head>
+<body>
+	  <%- include('common/login-aside.ejs') -%>
+			<!--右边下部分，网站的主体页面-->
+				<div class="main">
+		<div class="header">				
+				<div class="loginTitle">
+				<p>注册</p>
+				</div>
+			</div>
+		<div class="body">
+			<div class="loginform">
+					<form>
+					  <%# <div class="form-group">
+				    <label for="nickname" class="sr-only"></label>
+				    <input type="text" class="form-control" id="nickname" placeholder="昵称">
+				  	</div> %>
+				  <div class="form-group">
+				    <label for="username" class="sr-only"></label>
+				    <input type="text" class="form-control" id="username" placeholder="帐号">
+				  </div>
+				  <div class="form-group">
+				    <label for="password" class="sr-only"></label>
+				    <input type="password" class="form-control" id="password" placeholder="密码">
+				  </div>
+				  	<button type="submit" class="btn btn-default " id="register">注册</button>
+					</form>			
+				</div>
+			</div>
+		</div>
+		<script>
+		$(document).ready(function() {
+			$("#register").click(function(event){
+					event.preventDefault();
+					var username = $("#username").val();
+					var password = $("#password").val();
+					var data = {"username":username,"pw":password};
+					$.ajax({
+							type: 'POST',
+							url: '/register',
+							data: data,
+							success: function(data) {
+								if (data.ret_code === 0 ){
+									alert(data.ret_code);
+									alert("注册成功！");
+									location.href='/login';
+								};
+								if(data.ret_code === 1 ){
+									alert(data.ret_code);
+									alert("注册重复！")
+									location.href='/register';
+								};
+							}
+					});
+					return false;
+			});
+		
+		});
+		</script>
+</body>
+</html>

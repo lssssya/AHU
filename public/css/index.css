@@ -1,0 +1,199 @@
+
+html{
+    overflow:hidden;
+		height:100%;
+	}
+body{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+li{
+	list-style: none;
+}
+.aside{/*左边的边框栏 存在高度不固定的问题*/ 
+	width:200px;
+	height:100%;
+	top:0;
+	left:0;
+	bottom: 0;
+	right: 0;
+	background-color: #515151;
+	position:absolute;
+	float:left;
+}
+.logo{
+	padding-top:50px;
+	padding-bottom: 50px;
+}
+.logo img{
+	width: 100px;
+	height: 100px;
+}
+.aside .homeMenu{
+	margin-top: 60px;
+}
+.nav a{
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color:#E4E4E4;
+	font-size:16px;
+}
+.main{/*右边主体部分*/
+	background-color:#282828;
+	margin-left:200px;
+	height:100%;
+	overflow: auto;
+	padding-left: 80px;
+	padding-right: 80px;
+}
+
+/*==以上是通用样式，结构的框架== */
+
+/* note */
+.userHeader{
+	text-align: center;
+	padding-top: 50px;
+}
+.userHeader p{
+	padding-top: 20px;
+	font-size: 24px;
+	color:#BCBCBC;
+}
+.userimg img{
+	width:85px;
+	height: 85px;
+}
+.note{
+	border:2px solid rbg(222,222,222);
+}
+.note-list{
+	list-style: none;
+	margin-top: 50px;
+	margin-left: 20px;
+	padding:0;
+}
+.note-item{
+	float: left;
+	padding:18px;
+}
+.note-pic img{
+	width: 150px;
+	height: 150px;
+	border: 2px solid rgba(255,255,255,0.5)
+}
+.note-title{
+	padding-top: 20px;
+	text-align: center;
+	color:#BCBCBC;
+	font-size: 20px;
+}
+
+/* progress */
+.p-ul{
+	margin-top: 15px;
+	/*消除ul下li标签的左padding*/
+	padding:0; 
+}
+.p-items{
+	border: 10px solid;
+	border-color: #363636;
+	background-color: #515151;
+	margin-bottom: 15px;
+	padding-top: 15px;
+}
+.p-items-header{
+	height: 60px;
+}
+.user-pto img{
+	height: 50px;
+	width: 50px;
+}
+.user-pto{
+	float: left;
+	margin-left: 30px;
+	margin-right: 15px;
+}
+.user-info{
+	color:#BCBCBC;
+	font-size: 16px;
+}
+.user-nick a{
+	color:#199ED8;
+}
+.p-items-content{
+	margin-left: 100px;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+.user-content{
+	padding-right: 40px;
+}
+.user-content-pto{
+	margin-top: 15px;
+}
+.user-content-pto img{
+	height: 200px;
+	width: 200px;
+}
+.p-items-foot{
+	height: 50px;
+	margin-top: 15px;
+	padding-left:40px;
+	padding-right: 40px;
+}
+.cutLine{
+	margin:0px;
+	height:1px;
+	border:0px;
+	background-color:#D5D5D5;
+	color:#D5D5D5;
+}
+.items-info{
+	padding-top: 5px;
+	padding-left: 10px;
+	color:#FFFFFF;
+}
+
+/* follow */
+.follow-main{
+	background-color: #363636;
+	height: auto;
+	padding-bottom: 40px;
+}
+.follow-header{
+	margin-top: 15px;
+	margin-bottom:30px;
+}
+.follow-header .nav li{
+	margin-left: 2%;
+	width: 47%;
+	display: inline-block;
+}
+.f-items{
+	padding-top:15px;
+	margin-bottom: 30px;
+	background-color: #515151;
+	height: 80px;
+	margin-right: 30px;
+
+}
+.f-items .user-info .user-nick a{
+	color: #E4E4E4;
+	font-size: 24px;
+	padding-left: 5px;
+}
+.f-items button{
+	float:right;
+	margin-right: 30px;
+}
+/* 用div 包裹住 ul-li 的方法 */
+.follow-main:after{
+content: "";
+display: block;
+clear: both;
+background-color: #363636;
+}
