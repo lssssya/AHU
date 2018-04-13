@@ -10,17 +10,24 @@ router.get('/',function(req,res){
 });
 
 router.post('/', urlencodedParser, function (req, res, next) {
-	var user = findUserAndPw(req.body.username, req.body.pw);
-	if (user) {
-		res.json({ "ret_code": 0, "ret_msg": "登陆成功" });
-	} else {
-		res.json({ "ret_code": 1, "ret_msg": "帐号密码错误" });
-	}
-});
-function findUserAndPw(username, pw) {
-	return users.find(function (item) {
-		return item.username === username && item.pw === pw;
+	var username = req.body.username;
+	var pw = req.body.pw;
+
+	
+	var userModel = require('../database/userModel');
+	var db = new userModel();
+	db.init();
+	db.select(username,pw,function(err,result){
+		if(err){
+			res.json({ "ret_code": 2, "ret_msg": "登陆失败"});
+		}
+		else if (result[0].pw === pw){
+			res.json({ "ret_code": 0, "ret_msg": "登陆成功"});
+		}
+		else{
+			res.json({ "ret_code": 1, "ret_msg": "帐号密码错误"});
+		};
 	});
-};
+});
 
 module.exports = router;

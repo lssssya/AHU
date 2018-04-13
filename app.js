@@ -5,8 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 /* 这就是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象。*/
 const cookieParser = require('cookie-parser');
-
-
+const session = require("express-session");
 
 
 /* 
@@ -27,6 +26,8 @@ app.set('view engine','ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
 // const jsonParser = bodyParser.json();  // 处理json
 // const urlencodedParser = bodyParser.urlencoded({ extended: false });  //处理正常的
 

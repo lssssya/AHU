@@ -19,10 +19,10 @@
 		<div class="body">
 			<div class="loginform">
 					<form>
-					  <%# <div class="form-group">
+					<div class="form-group">
 				    <label for="nickname" class="sr-only"></label>
 				    <input type="text" class="form-control" id="nickname" placeholder="昵称">
-				  	</div> %>
+				  </div>
 				  <div class="form-group">
 				    <label for="username" class="sr-only"></label>
 				    <input type="text" class="form-control" id="username" placeholder="帐号">
@@ -40,9 +40,10 @@
 		$(document).ready(function() {
 			$("#register").click(function(event){
 					event.preventDefault();
+					var nickname = $("#nickname").val();
 					var username = $("#username").val();
 					var password = $("#password").val();
-					var data = {"username":username,"pw":password};
+					var data = {"username":username,"pw":password,"nickname":nickname};
 					$.ajax({
 							type: 'POST',
 							url: '/register',
