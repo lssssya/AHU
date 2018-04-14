@@ -16,43 +16,14 @@
       <!--内容部分!-->
       <div class="note">
         <ul class="note-list">
+        <% data.forEach(function(item){ %>
           <li class="note-item">
-            <a href="#" class="note-pic"><img src="./img/2.jpg"></a>
-            <div class="note-title">
-              <p>你的标题<p>
-            </div>
-          </li>
-          <li class="note-item">
-            <a href="#" class="note-pic"><img src="./img/2.jpg"></a>
-            <div class="note-title">
-              <p>你的标题<p>
-            </div>
-          </li>
-          <li class="note-item">
-            <a href="#" class="note-pic"><img src="./img/2.jpg"></a>
-            <div class="note-title">
-              <p>你的标题<p>
-            </div>
-          </li>
-          <li class="note-item">
-            <a href="#" class="note-pic"><img src="./img/2.jpg"></a>
-            <div class="note-title">
-              <p>你的标题<p>
-            </div>
-          </li>
-          <li class="note-item">
-            <a href="#" class="note-pic"><img src="./img/2.jpg"></a>
-            <div class="note-title">
-              <p>你的标题<p>
-            </div>
-          </li>
-          <li class="note-item">
-            <a href="#" class="note-pic"><img src="./img/2.jpg"></a>
-            <div class="note-title">
-              <p>你的标题<p>
-            </div>
-          </li>
-
+            <a href="#" class="note-pic"><img src=<%= item.noteCoverUrl %> ></a>
+          <div class="note-title">
+            <p><%= item.noteTitle %><p>
+          </div>
+        </li>
+        <%}); %>
         </ul>
       </div>
     </div>

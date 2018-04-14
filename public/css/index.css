@@ -197,3 +197,8 @@ display: block;
 clear: both;
 background-color: #363636;
 }
+
+/* follower */
+.follower-header{
+	padding-top: 30px;
+}

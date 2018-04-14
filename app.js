@@ -17,6 +17,7 @@ const noteRouter = require('./routes/note.js');
 const aboutRouter = require('./routes/about.js');
 const progressRouter = require('./routes/progress.js');
 const followRouter = require('./routes/follow.js');
+const followerRouter = require('./routes/follower.js');
 
 /* 
   基本设置
@@ -35,6 +36,7 @@ app.use(cookieParser());
   静态文件挂载
 */
 app.use(express.static('./public'));
+app.use(express.static('./uploads'));
 
 
 /*
@@ -46,7 +48,8 @@ app.use('/login', loginRouter);
 app.use('/register',registerRouter);
 app.use('/note',noteRouter);
 app.use('/progress',progressRouter);
-app.use('/follow-note',followRouter);
+app.use('/follow',followRouter);
+app.use('/follower', followerRouter);
 
 
 

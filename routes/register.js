@@ -3,7 +3,6 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-// var users = require('../database/users.js').items;
 router.get('/',function(req,res){
   res.render('register');
 });

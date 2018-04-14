@@ -12,8 +12,6 @@ router.get('/',function(req,res){
 router.post('/', urlencodedParser, function (req, res, next) {
 	var username = req.body.username;
 	var pw = req.body.pw;
-
-	
 	var userModel = require('../database/userModel');
 	var db = new userModel();
 	db.init();
