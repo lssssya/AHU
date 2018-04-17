@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>不忘_登陆_测试</title>
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+	<script src="/lib/jquery/jquery.js"></script>
+</head>
+<body>
+	<%- include('common/home-aside.ejs') -%>
+	<!--右边下部分，网站的主体页面-->
+  <div class="main">
+		<div class="return-btn">
+			<img src="/img/return-lg.jpg" id="btnReturn">
+		</div>
+		<div class="body">
+  		<div class="newnote-title">编辑记本</div>
+			<div class="newnote-form">
+				<form>
+				  <div class="form-group">
+				    <label for="notetitle" class="sr-only"></label>
+				    <input type="text" class="form-control" id="noteTitle" placeholder="(标题)">
+				  </div>
+				  <div class="form-group ">
+				    <label for="noteIntroduction" class="sr-only"></label>
+				    <textarea rows="10" cols="30" class="form-control" id="noteIntroduction" placeholder="(简介)"></textarea>
+					</div>
+					<div class="form-group">
+    				<label for="noteCover" class="sr-only"></label>
+   				 	<input type="file" id="noteCover">
+				  </div>
+					
+				  	<button type="submit" class="btn btn-primary btn-lg" id="btn">确认</button>
+				</form>
+			</div>
+
+  	</div>
+    
+	</div>
+<script>
+  //给return的图片一个点击事件
+  $("#btnReturn").click(function(){   
+    location.href='/home'; 
+  });
+</script>
+</body>
+</html>

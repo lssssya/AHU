@@ -1,19 +1,27 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.get('/', function (req, res) {
-  var data=[
+router.get('/',function(req,res){
+  var data = [
     {
-      noteCoverUrl:"1.jpg",
-      noteTitle: "yoyo"
+      nickname: "tracer",
+      userPtoUrl: "/4.jpg",
+      noteTitle: "yoyoyo",
+      noteContent: "this is my test!",
+      time: "2018",
+      zan: 10,
+      comment: 1,
     },
     {
-      noteCoverUrl: "2.jpg",
-      noteTitle: "yoyoyoyo"
+      nickname: "dayaozi",
+      userPtoUrl: "/4.jpg",
+      noteTitle: "yoyoyo",
+      noteContent: "something just like this!",
+      time: "2017",
+      zan: 11,
+      comment: 2,
     }
   ];
-  
   res.render('note',{data:data});
 });
 

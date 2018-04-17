@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>不忘_登陆_测试</title>
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+	<script src="/lib/jquery/jquery.js"></script>
+</head>
+<body>
+	<%- include('common/home-aside.ejs') -%>
+	<!--右边下部分，网站的主体页面-->
+	<div class="main">
+    <%- include('common/home-header.ejs') -%>
+    <div class="body">
+      <!--内容部分!-->
+      <div class="notelist">
+        <ul class="note-list">
+        <% data.forEach(function(item){ %>
+          <li class="notelist-item">
+            <a href="#" class="notelist-pic"><img src=<%= item.noteCoverUrl %> ></a>
+          <div class="notelist-title">
+            <p><%= item.noteTitle %><p>
+          </div>
+        </li>
+        <%}); %>
+        </ul>
+      </div>
+    </div>
+
+	</div>
+<script>
+</script>
+</body>
+</html>

@@ -11,13 +11,12 @@ const session = require("express-session");
 /* 
   路由接口列表
 */
-const loginRouter = require('./routes/login.js');
-const registerRouter = require('./routes/register.js');
-const noteRouter = require('./routes/note.js');
-const aboutRouter = require('./routes/about.js');
-const progressRouter = require('./routes/progress.js');
-const followRouter = require('./routes/follow.js');
-const followerRouter = require('./routes/follower.js');
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
+const aboutRouter = require('./routes/about');
+const homepageRouter = require('./routes/home');
+const noteRouter = require('./routes/note');
+
 
 /* 
   基本设置
@@ -28,9 +27,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
 // const jsonParser = bodyParser.json();  // 处理json
 // const urlencodedParser = bodyParser.urlencoded({ extended: false });  //处理正常的
+
 
 /* 
   静态文件挂载
@@ -46,11 +45,8 @@ app.use('/',aboutRouter);
 app.use('/about', aboutRouter);
 app.use('/login', loginRouter);
 app.use('/register',registerRouter);
+app.use('/home',homepageRouter);
 app.use('/note',noteRouter);
-app.use('/progress',progressRouter);
-app.use('/follow',followRouter);
-app.use('/follower', followerRouter);
-
 
 
 

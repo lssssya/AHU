@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<script>
-			$(document).ready(function() {
+		$(document).ready(function() {
 			$("#login").click(function(event){
 					event.preventDefault();
 					var username = $("#username").val();
@@ -47,7 +47,7 @@
 							success: function(data) {
 								if (data.ret_code === 0 ){
 									alert("登陆成功！");
-									location.href='/note';
+									location.href='/home';
 								};
 								if(data.ret_code===1){
 									alert("登陆失败！")

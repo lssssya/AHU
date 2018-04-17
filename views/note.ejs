@@ -10,26 +10,78 @@
 <body>
 	<%- include('common/home-aside.ejs') -%>
 	<!--右边下部分，网站的主体页面-->
-	<div class="main">
-    <%- include('common/home-header.ejs') -%>
-    <div class="body">
-      <!--内容部分!-->
-      <div class="note">
-        <ul class="note-list">
-        <% data.forEach(function(item){ %>
-          <li class="note-item">
-            <a href="#" class="note-pic"><img src=<%= item.noteCoverUrl %> ></a>
-          <div class="note-title">
-            <p><%= item.noteTitle %><p>
-          </div>
-        </li>
-        <%}); %>
+  <div class="main">
+		<div class="return-btn">
+		<img src="/img/return-lg.jpg" id="btnReturn">
+		</div>
+		<div class="body">
+      <div class="note-title">noteTitle</div>
+      <div class="note-detail">
+        <div class="note-detail-header">
+          <img src="/2.jpg">
+        <div class="note-title">noteTitle</div>
+        </div>
+        <hr class="cutLine" />
+        <div class="note-detail-content">
+          <ul>
+            <li>进展<span>&nbsp;&nbsp;count</span></li>
+            <li>关注<span>&nbsp;&nbsp;count</span></li>
+            <li>点赞<span>&nbsp;&nbsp;count</span></li>
+            <li>评论<span>&nbsp;&nbsp;count</span></li>
+          </ul>
+        </div>
+        <hr class="cutLine" />
+        <div class="note-detail-foot">
+        introduction
+        </div>
+      </div>
+      <div class="note-body">
+        <div class="addRecord">
+          <form>	
+            <div class="form-group ">
+              <label for="addRecord">分享现在的心情</label>
+              <textarea rows="4" cols="30" class="form-control" id="addRecord" placeholder="+ 添加"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" id="btn">发布</button>
+          </form>
+        </div>
+        <div class="note-content">
+        <ul class="p-ul">
+          <% data.forEach(function(item){ %>
+            <li class="record-items">
+              <div class="r-items-header">
+                <div class="info-time">
+                  <span><%= item.time %></span>
+                </div>
+              </div>
+              <div class="r-items-content">
+                <div class="record-content">
+                  <p><%= item.noteContent %></p>
+                </div>
+              </div>
+              <div class="r-items-foot">
+                <hr class="cutLine" />
+                <div class="items-info">
+                  赞<span>&nbsp;<%= item.zan %> &nbsp;</span>
+                  评论<span>&nbsp;<%= item.comment %> &nbsp;</span>
+                </div>
+                <div class="record-option"></div>
+              </div>
+            </li>
+          <%});%>
         </ul>
+        
+        </div>
       </div>
     </div>
-
+    
 	</div>
 <script>
+  // $(document).ready(function() {
+    $("#btnReturn").click(function(){   
+      location.href='/home'; 
+    });
+  // };
 </script>
 </body>
 </html>
