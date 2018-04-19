@@ -11,11 +11,14 @@
 	<%- include('common/home-aside.ejs') -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
+	
+    <%#  模版传入userPtoUrl 和 nickname  %>
+
     <%- include('common/home-header.ejs') -%>
     <div class="body">
       <!--内容部分!-->	
 					<ul class="p-ul">
-						<% data.forEach(function(item){ %>
+						<% data.progress.forEach(function(item){ %>
 							<li class="p-items">
 								<div class="p-items-header">
 									<div class="user-pto">
@@ -23,23 +26,27 @@
 									</div>
 									<div class="user-info">
 										<div class="info-time">
-											<span><%= item.time %></span>
+											<span><%= item.recordTime %></span>
 										</div>
 										<div class="user-nick">
+											
+											<%#  点击nickname去找user的主页 %>
+											<%#  点击noteTitle去找到note的页面 %>
+
 											<a href="#"><%= item.nickname %></a><span>更新了一个进展到&nbsp;</span><a href="#"><%= item.noteTitle %></a>
 										</div>
 									</div>
 								</div>
 								<div class="p-items-content">
 									<div class="user-content">
-										<p><%= item.noteContent %></p>
+										<p><%= item.recordContent %></p>
 									</div>
 								</div>
 								<div class="p-items-foot">
 									<hr class="cutLine" />
 									<div class="items-info">
-										赞<span>&nbsp;<%= item.zan %> &nbsp;</span>
-										评论<span>&nbsp;<%= item.comment %> &nbsp;</span>
+										赞<span>&nbsp;<%= item.recordLiked %> &nbsp;</span>
+										评论<span>&nbsp;<%= item.recordComment %> &nbsp;</span>
 									</div>
 								</div>
 							</li>

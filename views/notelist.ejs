@@ -10,14 +10,20 @@
 <body>
 	<%- include('common/home-aside.ejs') -%>
 	<!--右边下部分，网站的主体页面-->
-	<div class="main">
+  <div class="main">
+
+    <%#  模版传入userPtoUrl 和 nickname  %>
+
     <%- include('common/home-header.ejs') -%>
     <div class="body">
       <!--内容部分!-->
       <div class="notelist">
         <ul class="note-list">
-        <% data.forEach(function(item){ %>
+        <% data.notelist.forEach(function(item){ %>
           <li class="notelist-item">
+
+           <%# a标签需要添加note 的ID 去寻找路由  %>
+           
             <a href="#" class="notelist-pic"><img src=<%= item.noteCoverUrl %> ></a>
           <div class="notelist-title">
             <p><%= item.noteTitle %><p>

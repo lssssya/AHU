@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>不忘_登陆_测试</title>
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+	<script src="/lib/jquery/jquery.js"></script>
+</head>
+<body>
+	<%- include('common/home-aside.ejs') -%>
+	<!--右边下部分，网站的主体页面-->
+  <div class="main">
+    <div class="page-title">动态</div>
+    <hr class="cutLine" />
+    <div class="body">
+      <ul class="p-ul">
+        <% data.progress.forEach(function(item){ %>
+          <li class="p-items">
+            <div class="p-items-header">
+              <div class="user-pto">
+                <img src=<%= item.userPtoUrl %> >
+              </div>
+              <div class="user-info">
+                <div class="info-time">
+                  <span><%= item.recordTime %></span>
+                </div>
+                <div class="user-nick">
+                  
+                  <%#  点击nickname去找user的主页 %>
+                  <%#  点击noteTitle去找到note的页面 %>
+
+                  <a href="#"><%= item.nickname %></a><span>更新了一个进展到&nbsp;</span><a href="#"><%= item.noteTitle %></a>
+                </div>
+              </div>
+            </div>
+            <div class="p-items-content">
+              <div class="user-content">
+                <p><%= item.recordContent %></p>
+              </div>
+            </div>
+            <div class="p-items-foot">
+              <hr class="cutLine" />
+              <div class="items-info">
+                赞<span>&nbsp;<%= item.recordLiked %> &nbsp;</span>
+                评论<span>&nbsp;<%= item.recordComment %> &nbsp;</span>
+              </div>
+            </div>
+          </li>
+        <%});%>
+      </ul>
+    </div>
+  </div>
+<script>
+</script>
+</body>
+</html>

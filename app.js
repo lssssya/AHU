@@ -16,6 +16,7 @@ const registerRouter = require('./routes/register');
 const aboutRouter = require('./routes/about');
 const homepageRouter = require('./routes/home');
 const noteRouter = require('./routes/note');
+const friendingRouter = require('./routes/friending');
 
 
 /* 
@@ -47,7 +48,7 @@ app.use('/login', loginRouter);
 app.use('/register',registerRouter);
 app.use('/home',homepageRouter);
 app.use('/note',noteRouter);
-
+app.use('/friending',friendingRouter);
 
 
 /* 

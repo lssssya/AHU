@@ -21,15 +21,18 @@
 	    			<li><a href="/home/follow/note">记本</a></li>
 	    		</ul>
 	    	</div>
-  	    <div class="note">
-          <ul class="note-list">
-            <li class="note-item">
-              <a href="#" class="note-pic"><img src="/img/2.jpg"></a>
-              <div class="note-title">
-                <p>你的标题<p>
+  	    <div class="notelist">
+					<ul class="note-list">
+						<% data.notelist.forEach(function(item){%>
+						
+						<li class="notelist-item">
+						  <%# 点击note跳转note页面 %>
+              <a href="#" class="notelist-pic"><img src=<%= item.noteCoverUrl %> ></a>
+              <div class="notelist-title">
+                <p><%= item.noteTitle %><p>
               </div>
             </li>
-            
+            <%});%>
           </ul>
         </div>
 

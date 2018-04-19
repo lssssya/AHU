@@ -12,27 +12,29 @@
 	<!--右边下部分，网站的主体页面-->
   <div class="main">
 		<div class="return-btn">
-		<img src="/img/return-lg.jpg" id="btnReturn">
+		  <img src="/img/return-lg.jpg" id="btnReturn">
 		</div>
 		<div class="body">
-      <div class="note-title">noteTitle</div>
+      <div class="note-title">
+        <%= data.noteTitle %>
+      </div>
       <div class="note-detail">
         <div class="note-detail-header">
-          <img src="/2.jpg">
-        <div class="note-title">noteTitle</div>
+          <img src=<%= data.noteCoverUrl %>>
+        <div class="note-title"><%= data.noteTitle %></div>
         </div>
         <hr class="cutLine" />
         <div class="note-detail-content">
           <ul>
-            <li>进展<span>&nbsp;&nbsp;count</span></li>
-            <li>关注<span>&nbsp;&nbsp;count</span></li>
-            <li>点赞<span>&nbsp;&nbsp;count</span></li>
-            <li>评论<span>&nbsp;&nbsp;count</span></li>
+            <li>进展<span>&nbsp;&nbsp;<%= data.noteCountProgress %></span></li>
+            <li>关注<span>&nbsp;&nbsp;<%= data.noteCountFollower %></span></li>
+            <li>点赞<span>&nbsp;&nbsp;<%= data.noteCountLiked %></span></li>
+            <li>评论<span>&nbsp;&nbsp;<%= data.noteCountComment %></span></li>
           </ul>
         </div>
         <hr class="cutLine" />
         <div class="note-detail-foot">
-        introduction
+        <%= data.noteIntroduction %>
         </div>
       </div>
       <div class="note-body">
@@ -47,23 +49,23 @@
         </div>
         <div class="note-content">
         <ul class="p-ul">
-          <% data.forEach(function(item){ %>
+          <% data.progress.forEach(function(item){ %>
             <li class="record-items">
               <div class="r-items-header">
                 <div class="info-time">
-                  <span><%= item.time %></span>
+                  <span><%= item.recordTime %></span>
                 </div>
               </div>
               <div class="r-items-content">
                 <div class="record-content">
-                  <p><%= item.noteContent %></p>
+                  <p><%= item.recordContent %></p>
                 </div>
               </div>
               <div class="r-items-foot">
                 <hr class="cutLine" />
                 <div class="items-info">
-                  赞<span>&nbsp;<%= item.zan %> &nbsp;</span>
-                  评论<span>&nbsp;<%= item.comment %> &nbsp;</span>
+                  赞<span>&nbsp;<%= item.recordLiked %> &nbsp;</span>
+                  评论<span>&nbsp;<%= item.recordComment %> &nbsp;</span>
                 </div>
                 <div class="record-option"></div>
               </div>
@@ -77,11 +79,11 @@
     
 	</div>
 <script>
-  // $(document).ready(function() {
-    $("#btnReturn").click(function(){   
-      location.href='/home'; 
-    });
-  // };
+  //给return的图片一个点击事件
+  $("#btnReturn").click(function(){   
+    location.href='/home'; 
+  });
+
 </script>
 </body>
 </html>

@@ -194,6 +194,7 @@ li{
 
 /* home-follower */
 .follower-header{
+	margin-top: 15px;
 	padding-top: 30px;
 }
 
@@ -314,4 +315,12 @@ li{
 	padding:5px 15px;
 	font-size: 16px;
 	color: #BCBCBC;
+}
+
+/* friending */
+.page-title{
+	padding:40px 0;
+	font-size: 30px;
+	color: #BCBCBC;
+	font-weight: normal;
 }
