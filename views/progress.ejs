@@ -11,10 +11,7 @@
 	<%- include('common/home-aside.ejs') -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
-	
-    <%#  模版传入userPtoUrl 和 nickname  %>
-
-    <%- include('common/home-header.ejs') -%>
+		<%- include('common/home-header.ejs',{data:data}) -%>
     <div class="body">
       <!--内容部分!-->	
 					<ul class="p-ul">

@@ -9,7 +9,7 @@ var data = {
         noteTitle: "yoyoyo",
         noteID: "",
         recordID: "",
-        recordContent: "this is my test!",
+        recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         recordTime: "2018",
         recordLiked: 10,
         recordComment: 1
@@ -21,7 +21,7 @@ var data = {
         noteTitle: "yoyoyo",
         noteID: "",
         recordID: "",
-        recordContent: "this is my test!",
+        recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         recordTime: "2018",
         recordLiked: 10,
         recordComment: 1
@@ -55,8 +55,8 @@ var data = {
 
   follow:{
     userID: "",
-    userPtoUrl: "",
-    nickname: "",
+    userPtoUrl: "/1.jpg",
+    nickname: "tracer",
     notelist:[
       {
         noteID: "",
@@ -99,7 +99,7 @@ var data = {
         noteTitle: "yoyoyo",
         noteID: "",
         recordID: "",
-        recordContent: "this is my test!",
+        recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         recordTime: "2018",
         recordLiked: 10,
         recordComment: 1
@@ -110,7 +110,7 @@ var data = {
         noteTitle: "yoyoyo",
         noteID: "",
         recordID: "",
-        recordContent: "this is my test!",
+        recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         recordTime: "2018",
         recordLiked: 10,
         recordComment: 1
@@ -120,8 +120,6 @@ var data = {
   
   notelist:{
     userID: "",
-    userPtoUrl: "",
-    nickname: "",
     nickname:"tracer",
     userPtoUrl:"/4.jpg",
     notelist: [
@@ -140,6 +138,9 @@ var data = {
 
   /* notedata  */
   notedata:{
+    userID: "",
+    userPtoUrl: "",
+    nickname: "tracer",
     noteID: "",
     noteTitle: "11111",
     noteCoverUrl: "/2.jpg",
@@ -147,24 +148,50 @@ var data = {
     noteCountFollower: 13,
     noteCountLiked: 12,
     noteCountComment: 10,
-    noteIntroduction: "adishfaisbf",
+    noteIntroduction: "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
     progress: [
       {
-        recordID: "",
-        recordContent: "this is my test!",
+        recordID: "aaa",
+        recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         recordTime: "2018",
         recordLiked: 10,
         recordComment: 1,
+        comment:[
+          {
+            userID:"",
+            nickname:"tracer",
+            comment:"nice day"
+          },
+          {
+            userID: "",
+            nickname: "tracer",
+            comment: "nice day"
+          }
+        ]
+        
       },
       {
-        recordID: "",
-        recordContent: "this is my test!",
+        recordID: "aab",
+        recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         recordTime: "2018",
         recordLiked: 12,
         recordComment: 11,
+        comment: [
+          {
+            userID: "",
+            nickname: "tracer",
+            comment: "nice day"
+          },
+          {
+            userID: "",
+            nickname: "tracer",
+            comment: "nice day"
+          }
+        ]
       }
     ]
   }
 
 };
+
 module.exports=data;

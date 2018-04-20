@@ -48,37 +48,110 @@
           </form>
         </div>
         <div class="note-content">
-        <ul class="p-ul">
-          <% data.progress.forEach(function(item){ %>
-            <li class="record-items">
-              <div class="r-items-header">
-                <div class="info-time">
-                  <span><%= item.recordTime %></span>
+          <ul class="p-ul">
+            <% data.progress.forEach(function(item){ %>
+              <li class="record-items">
+                <div class="r-items-header">
+                  <div class="info-time"><span><%= item.recordTime %></span></div>
                 </div>
-              </div>
-              <div class="r-items-content">
-                <div class="record-content">
-                  <p><%= item.recordContent %></p>
+                <div class="r-items-content">
+                  <div class="record-content"> <p><%= item.recordContent %></p></div>     
                 </div>
-              </div>
-              <div class="r-items-foot">
-                <hr class="cutLine" />
-                <div class="items-info">
-                  赞<span>&nbsp;<%= item.recordLiked %> &nbsp;</span>
-                  评论<span>&nbsp;<%= item.recordComment %> &nbsp;</span>
+                <div class="r-items-foot">
+                  <hr class="cutLine" />
+                  <div class="items-info">
+                    <a id=<%= item.recordID %>liked>赞</a><span>&nbsp;&nbsp;<%= item.recordLiked %> &nbsp;</span>
+                    <a id=<%= item.recordID %>>评论</a><span>&nbsp;&nbsp;<%= item.recordComment %>&nbsp; </span>
+                    <a id="delete" style="float:right;margin-right:10px;">删除</a>
+                    <a id="edit" style="float:right;margin-right:10px;">编辑</a>
+                  </div>
+                  <div class="commentbox" id=<%= item.recordID %>commentbox >
+                    <div class="panel panel-default">
+                      <ul class="list-group" id=<%= item.recordID%>ul>
+                        <% item.comment.forEach(function(item){ %>
+                        <li class="list-group-item"><a href="#"><%= item.nickname %></a><span>&nbsp;:&nbsp;<%= item.comment %></span></li>
+                        <%}); %>
+                      </ul>
+                    </div>
+                    <div>
+                      <form class="form-inline">  
+                        <input type="text" class="form-control" id=<%= item.recordID %>input >
+                        <button type="submit" class="btn btn-primary" id=<%= item.recordID %>comment>发布</button>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-                <div class="record-option"></div>
-              </div>
-            </li>
-          <%});%>
-        </ul>
-        
+              </li>
+            <%});%>
+          </ul>
         </div>
       </div>
     </div>
     
 	</div>
 <script>
+$(document).ready(function(){
+
+    // $("#btn").click(function(evetn){
+    //   event.preventDefault();
+    //   var add = $("#addrecord").val();
+    //   var data = {"recordContent":add}
+    //   $.ajax({
+    //     type: 'POST',
+    //     url: '/note:id'
+    //     data: data,
+    //     success:function(data){}
+    //   });
+    // });
+
+
+
+    var a = document.querySelector('.note-content');
+    a.addEventListener('click', function(event){
+      var id = event.target.id;
+      if($("#"+id+"commentbox").css("display")=="none"){  
+        $("#"+id+"commentbox").show();  
+      }else{  
+        $("#"+id+"commentbox").hide();
+      };
+
+      $("#"+id+"comment").click(function(event){
+        ulID = id+"ul";
+        event.preventDefault();
+        var comment = $("#"+id+"input").val();
+        var data={"comment":comment,"recordID":id}
+        var ul = document.getElementById(ulID);
+        var newLi = document.createElement('li');
+        var text = '<li class="list-group-item"><a href="#">'+id+'</a><span>&nbsp;:&nbsp;'+comment+'</span></li>';
+        newLi.innerHTML=text;
+        setTimeout(function(){
+          ul.appendChild(newLi)
+        },1000); // 假装上传且实时更新  其实是Ajax 可以完成但是先不写
+
+        // $.ajax({
+        //     type: 'POST',
+        //     url: 
+        //     data: data,
+        //     success:function(data){
+              
+        //     }
+        // });
+
+
+      });
+
+    },false);
+    
+    $("#liked").click(function(){
+
+    });
+
+    $("#delete").click(function(){
+
+    });
+});
+
+
   //给return的图片一个点击事件
   $("#btnReturn").click(function(){   
     location.href='/home'; 
