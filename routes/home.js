@@ -1,10 +1,43 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
+
+/* 
+  上传文件的中间件以及修改文件名的模块
+*/
+var multer = require('multer');
+var createFolder = function (folder) {
+  try {
+    fs.accessSync(folder);
+  } catch (e) {
+    fs.mkdirSync(folder);
+  }
+};
+var uploadFolder = './uploads/';
+createFolder(uploadFolder);
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadFolder);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+var upload = multer({ storage: storage });
+
 
 /* part -- newnote */
 
 router.get('/newnote',function(req,res){
   res.render('newnote');
+});
+var cpUpload = upload.fields([{ name: 'noteCover' }, { name: 'noteIntroduction' }, { name: 'noteTitle' }])
+router.post('/newnote', cpUpload, function(req,res){
+  console.log(req.body.noteTitle);
+  console.log(req.body.noteIntroduction);
+  console.dir(req.files['noteCover'][0]);
+  res.json({ "ret_code": 0, "ret_msg": "创建记本成功" });
 });
 
 /* part -- notelist */

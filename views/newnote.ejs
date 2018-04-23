@@ -17,18 +17,18 @@
 		<div class="body">
   		<div class="newnote-title">编辑记本</div>
 			<div class="newnote-form">
-				<form>
+				<form action="/home/newnote" method="POST" enctype="multipart/form-data">
 				  <div class="form-group">
-				    <label for="notetitle" class="sr-only"></label>
-				    <input type="text" class="form-control" id="noteTitle" placeholder="(标题)">
+				    <label for="noteTitle" class="sr-only"></label>
+				    <input type="text" name="noteTitle" class="form-control" id="noteTitle" placeholder="(标题)">
 				  </div>
 				  <div class="form-group ">
 				    <label for="noteIntroduction" class="sr-only"></label>
-				    <textarea rows="10" cols="30" class="form-control" id="noteIntroduction" placeholder="(简介)"></textarea>
+				    <textarea rows="10" cols="30" name="noteIntroduction" class="form-control" id="noteIntroduction" placeholder="(简介)"></textarea>
 					</div>
 					<div class="form-group">
     				<label for="noteCover" class="sr-only"></label>
-   				 	<input type="file" id="noteCover">
+   				 	<input type="file" id="noteCover" name="noteCover" style="color:#BCBCBC;">
 				  </div>
 				  <button type="submit" class="btn btn-primary btn-lg" id="btn">确认</button>
 				</form>
@@ -38,6 +38,33 @@
     
 	</div>
 <script>
+	$(document).ready(function(){
+
+		$("#btn").click(function(event){
+			event.preventDefault();
+			var noteTitle = $("#noteTitle").val();
+			var noteIntroduction = $("#noteIntroduction").val();
+			var formData = new FormData(); 
+			formData.append('noteCover', $("#noteCover")[0].files[0]);  //添加图片信息的参数
+			formData.append('noteTitle',noteTitle);
+			formData.append('noteIntroduction',noteIntroduction);  //添加其他参数
+			$.ajax({
+				type: 'POST',
+				url: '/home/newnote',
+				async: false,
+				data: formData,
+				processData : false,
+				contentType : false,
+				success:function(data){
+					if (data.ret_code === 0 ){
+						alert("创建记本成功！");
+					};
+				}
+
+			});
+		});
+	});
+
   //给return的图片一个点击事件
   $("#btnReturn").click(function(){   
     location.href='/home'; 
