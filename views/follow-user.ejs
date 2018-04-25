@@ -8,7 +8,7 @@
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs') -%>
+	<%- include('common/home-aside.ejs',{data:data}) -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
     <%- include('common/home-header.ejs',{data:data}) -%>
@@ -17,8 +17,8 @@
       <div class="follow-main">
 	      <div class="follow-header">
 	      	<ul class="nav nav-pills">
-	  				<li><a href="/home/follow/user">用户</a></li>
-	    			<li><a href="/home/follow/note">记本</a></li>
+	  				<li><a href="/home/<%= data.userID %>/follow/user">用户</a></li>
+	    			<li><a href="/home/<%= data.userID %>/follow/note">记本</a></li>
 	    		</ul>
 	    	</div>  	
 				<div>

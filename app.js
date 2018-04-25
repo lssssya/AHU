@@ -31,23 +31,7 @@ app.use(cookieParser());
 
 // const jsonParser = bodyParser.json();  // 处理json
 // const urlencodedParser = bodyParser.urlencoded({ extended: false });  //处理正常的
-// 移动文件需要使用fs模块
-// var fs = require('fs');
-// app.post('/file-upload', function (req, res) {
-//   // 获得文件的临时路径
-//   var tmp_path = req.files.thumbnail.path;
-//   // 指定文件上传后的目录 - 示例为"images"目录。 
-//   var target_path = './public/images/' + req.files.thumbnail.name;
-//   // 移动文件
-//   fs.rename(tmp_path, target_path, function (err) {
-//     if (err) throw err;
-//     // 删除临时文件夹文件, 
-//     fs.unlink(tmp_path, function () {
-//       if (err) throw err;
-//       res.send('File uploaded to: ' + target_path + ' - ' + req.files.thumbnail.size + ' bytes');
-//     });
-//   });
-// };
+
 
 /* 
   静态文件挂载
@@ -66,6 +50,8 @@ app.use('/register',registerRouter);
 app.use('/home',homepageRouter);
 app.use('/note',noteRouter);
 app.use('/friending',friendingRouter);
+
+
 
 
 /* 

@@ -8,7 +8,7 @@
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs') -%>
+	<%- include('common/home-aside.ejs',{data:data}) -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
     <%- include('common/home-header.ejs',{data:data}) -%>

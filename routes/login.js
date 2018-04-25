@@ -17,8 +17,8 @@ router.post('/', urlencodedParser, function (req, res, next) {
 		if(err){
 			res.json({ "ret_code": 2, "ret_msg": "登陆失败"});
 		}
-		else if (result[0].pw === pw){
-			res.json({ "ret_code": 0, "ret_msg": "登陆成功"});
+		else if (result[0].password === pw){
+			res.json({ "ret_code": 0, "ret_msg": "登陆成功","userID": result[0].userID });
 		}
 		else{
 			res.json({ "ret_code": 1, "ret_msg": "帐号密码错误"});

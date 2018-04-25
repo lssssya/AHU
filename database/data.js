@@ -31,9 +31,9 @@ var data = {
 
 
   follower:{
-    userID:"",
-    userPtoUrl:"",
-    nickname:"",
+    userID: "6",
+    userPtoUrl: "/1.jpg",
+    nickname: "xiaonvyo",
     userlist: [
       {
         userID: "",
@@ -54,9 +54,9 @@ var data = {
   },
 
   follow:{
-    userID: "",
+    userID: "6",
     userPtoUrl: "/1.jpg",
-    nickname: "tracer",
+    nickname: "xiaonvyo",
     notelist:[
       {
         noteID: "",
@@ -89,16 +89,16 @@ var data = {
   },
 
   progress:{
-    userID: "",
-    userPtoUrl: "",
-    nickname: "",
+    userID: "6",
+    userPtoUrl: "/1.jpg",
+    nickname: "xiaonvyo",
     progress:[
       {
         nickname: "dayaozi",
         userPtoUrl: "/4.jpg",
         noteTitle: "yoyoyo",
-        noteID: "",
-        recordID: "",
+        noteID: "1",
+        recordID: "1",
         recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         recordTime: "2018",
         recordLiked: 10,
@@ -108,8 +108,8 @@ var data = {
         nickname: "dayaozi",
         userPtoUrl: "/4.jpg",
         noteTitle: "yoyoyo",
-        noteID: "",
-        recordID: "",
+        noteID: "1",
+        recordID: "2",
         recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         recordTime: "2018",
         recordLiked: 10,

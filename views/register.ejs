@@ -50,12 +50,10 @@
 							data: data,
 							success: function(data) {
 								if (data.ret_code === 0 ){
-									alert(data.ret_code);
 									alert("注册成功！");
 									location.href='/login';
 								};
 								if(data.ret_code === 1 ){
-									alert(data.ret_code);
 									alert("注册重复！")
 									location.href='/register';
 								};

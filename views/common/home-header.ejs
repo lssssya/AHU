@@ -1,16 +1,16 @@
 <div class="userHeader">
 		<div class="userimg">
-			<img src=<%= data.userPtoUrl %>>
+			<img src="<%= data.userPtoUrl %>">
 	  </div>
 	<p><%= data.nickname %></p>
 </div>
 <div class="header">				
   <ul class="nav nav-tabs">
-  <li role="presentation"><a href="/home/notelist">记本</a></li>
-    <li role="presentation"><a href="/home/progress">进展</a></li>
-    <li role="presentation"><a href="/home/follow">关注</a></li>
-    <li role="presentation"><a href="/home/follower">粉丝</a></li>
-    <li role="presentation" class="pull-right"><a href="/home/newnote"><span class="glyphicon glyphicon-plus">&nbsp;</span>新增记本</a></li>
+    <li role="presentation"><a href="/home/<%= data.userID %>/notelist">记本</a></li>
+    <li role="presentation"><a href="/home/<%= data.userID %>/progress">进展</a></li>
+    <li role="presentation"><a href="/home/<%= data.userID %>/follow">关注</a></li>
+    <li role="presentation"><a href="/home/<%= data.userID %>/follower">粉丝</a></li>
+    <li role="presentation" class="pull-right"><a href="/home/<%= data.userID %>/newnote"><span class="glyphicon glyphicon-plus">&nbsp;</span>新增记本</a></li>
   </ul>
 </div>
 

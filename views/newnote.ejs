@@ -8,7 +8,7 @@
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs') -%>
+	<%- include('common/home-aside.ejs',{data:data}) -%>
 	<!--右边下部分，网站的主体页面-->
   <div class="main">
 		<div class="return-btn">
@@ -24,7 +24,7 @@
 				  </div>
 				  <div class="form-group ">
 				    <label for="noteIntroduction" class="sr-only"></label>
-				    <textarea rows="10" cols="30" name="noteIntroduction" class="form-control" id="noteIntroduction" placeholder="(简介)"></textarea>
+				    <textarea rows="10" cols="30" name="noteIntroduction" class="form-control" id="noteIntroduction" placeholder="(简介)" onkeyup="keyUP(this)"></textarea>
 					</div>
 					<div class="form-group">
     				<label for="noteCover" class="sr-only"></label>
@@ -37,6 +37,14 @@
   	</div>
     
 	</div>
+<script type="text/javascript">
+    function keyUP(t){
+      var len = $(t).val().length;
+      if(len > 139){
+        $(t).val($(t).val().substring(0,140));
+      }
+    }
+</script>
 <script>
 	$(document).ready(function(){
 
@@ -65,9 +73,9 @@
 		});
 	});
 
-  //给return的图片一个点击事件
   $("#btnReturn").click(function(){   
-    location.href='/home'; 
+    // location.href='/home';
+    history.back(-1);
   });
 </script>
 </body>

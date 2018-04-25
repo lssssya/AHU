@@ -6,10 +6,23 @@ function noteModel(){
       host:'localhost',
       user:'root',
       password:'xiaozhu32',
-      database:'test'
+      database:'xjmtest'
     });
     connection.connect();
   };
+
+  this.homePage=function(userID,callback){
+    var sql = 'select userID,noteID,noteTitle,noteCoverUrl from note where userID = "' + userID + '" ';
+    connection.query(sql,function (err,result) {
+      callback(err,result);      
+    });
+    connection.end();
+  };
+
+
+  this.newNote=function(userID,noteTitle,noteIntroduction,noteCoverUrl,callback){
+    var newNoteSql = 'insert into note(username,pw,nickname) value(?,?,?)'
+  }
 
   this.addRecord=function(noteID,recordContent,callback){
     var addRecordSql;//insert
