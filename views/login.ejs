@@ -47,7 +47,7 @@
 							success: function(data) {
 								if (data.ret_code === 0 ){
 									alert(data.userID);
-									location.href='/home'+data.userID+'/notelist' ;
+									location.href='/home/'+data.userID+'/notelist' ;
 								};
 								if(data.ret_code === 1){
 									alert("帐号密码错误，请重新登陆！")

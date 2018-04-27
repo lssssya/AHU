@@ -16,6 +16,9 @@
       <!--内容部分!-->
       <div class="follow-main">    	
 				<div class="follower-header">
+					<% if(data.userlist.length == 0){ %>
+						<div class="blank-list"> there is no note here </div>
+					<% }else{ %>
 					<ul>
 						<% data.userlist.forEach(function(item){%>
 						<li>
@@ -32,6 +35,7 @@
 						</li>
 						<%});%>
 					</ul>
+					<% } %>
 				</div>
     </div>
 	</div>

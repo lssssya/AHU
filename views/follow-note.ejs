@@ -21,27 +21,27 @@
 	    			<li><a href="/home/<%= data.userID%>/follow/note">记本</a></li>
 	    		</ul>
 	    	</div>
-  	    <div class="notelist">
-					<ul class="note-list">
-						<% data.notelist.forEach(function(item){%>
-						
-						<li class="notelist-item">
-						  <%# 点击note跳转note页面 %>
-              <a href="#" class="notelist-pic"><img src=<%= item.noteCoverUrl %> ></a>
-              <div class="notelist-title">
-                <p><%= item.noteTitle %><p>
-              </div>
-            </li>
-            <%});%>
-          </ul>
-        </div>
-
-
-    </div>
-
+				<div class="notelist">
+					<% if(data.notelist.length == 0){ %>
+						<div class="blank-list"> there is no user here </div>
+					<% }else{ %>
+						<ul class="note-list">
+							<% data.notelist.forEach(function(item){ %>						
+							<li class="notelist-item">
+								<%# 点击note跳转note页面 %>
+								<a href="#" class="notelist-pic"><img src=<%= item.noteCoverUrl %> ></a>
+								<div class="notelist-title">
+									<p><%= item.noteTitle %><p>
+								</div>
+							</li>
+							<%});%>
+					</ul>
+				<% } %>
+				</div>	
+			
+    	</div>
 		</div>
-
-    </div>
+    
 	</div>
 <script>
 </script>

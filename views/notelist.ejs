@@ -15,11 +15,14 @@
     <div class="body">
       <!--内容部分!-->
       <div class="notelist">
+        <% if(data.notelist.length == 0){ %>
+						<div class="blank-list"> there is no note here </div>
+					<% }else{ %>
         <ul class="note-list">
         <% data.notelist.forEach(function(item){ %>
           <li class="notelist-item">
 
-           <%# a标签需要添加note 的ID 去寻找路由  %>
+            <%# a标签需要添加note 的ID 去寻找路由  %>
            
             <a href="#" class="notelist-pic"><img src=<%= item.noteCoverUrl %> ></a>
           <div class="notelist-title">
@@ -28,9 +31,9 @@
         </li>
         <%}); %>
         </ul>
+        <% } %>
       </div>
     </div>
-
 	</div>
 <script>
 </script>

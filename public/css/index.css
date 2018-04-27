@@ -53,6 +53,16 @@ li{
 
 /*==以上是通用样式，结构的框架== */
 
+.blank-list{
+	/* height 是一个伪处理 有时间优化整个背景的高度问题 */
+	height: 300px;
+	color:#BCBCBC;
+	font-size: 30px;
+	text-align: center;
+	margin-top: 70px;
+}
+
+
 /* home-notelist */
 .userHeader{
 	text-align: center;
@@ -167,6 +177,7 @@ li{
 	width: 47%;
 	display: inline-block;
 }
+
 .f-items{
 	padding-top:15px;
 	margin-bottom: 30px;

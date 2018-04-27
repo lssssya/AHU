@@ -13,7 +13,10 @@
 	<div class="main">
 		<%- include('common/home-header.ejs',{data:data}) -%>
     <div class="body">
-      <!--内容部分!-->	
+			<!--内容部分!-->
+				<% if(data.progress.length == 0){ %>
+						<div class="blank-list"> there is no progress here </div>
+					<% }else{ %>	
 					<ul class="p-ul">
 						<% data.progress.forEach(function(item){ %>
 							<li class="p-items">
@@ -49,6 +52,7 @@
 							</li>
 						<%});%>
 					</ul>
+					<% } %>
     </div>
 	</div>
 <script>

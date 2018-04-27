@@ -20,11 +20,14 @@
 	  				<li><a href="/home/<%= data.userID %>/follow/user">用户</a></li>
 	    			<li><a href="/home/<%= data.userID %>/follow/note">记本</a></li>
 	    		</ul>
-	    	</div>  	
-				<div>
+	    	</div>
+				<div class="userlist">
+					<% if(data.userlist.length === 0 ){ %>
+						<div class="blank-list"> there is no user here </div>
+					<% }else{ %>
 					<ul>
-						<% data.userlist.forEach(function(item){%>
-						<li>
+					<% data.userlist.forEach(function(item){ %>
+						<li class="userlist-item">
 							<div class="f-items">
 								<div class="user-pto">
 									<img src=<%= item.userPtoUrl %>>
@@ -38,6 +41,7 @@
 						</li>
 						<%});%>
 					</ul>
+					<% } %>
 				</div>
 			</div>
 	  </div>
