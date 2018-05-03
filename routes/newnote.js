@@ -3,6 +3,7 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
+const checkLogin = require('../middlewares/checklogin').checkLogin;
 /* 
   上传文件的中间件以及修改文件名的模块
 */
@@ -26,10 +27,9 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
-/* part -- newnote */
 
-router.get('/', function (req, res) {
-  var userID = 6 ; //session
+router.get('/', checkLogin, function (req, res) {
+  var userID = 1 ; //session
   var data = {
     userID: userID,
   };
@@ -38,15 +38,18 @@ router.get('/', function (req, res) {
 
 var cpUpload = upload.fields([{ name: 'noteCover' }, { name: 'noteIntroduction' }, { name: 'noteTitle' }])
 
-router.post('/', cpUpload, function (req, res) {
+router.post('/', checkLogin,cpUpload, function (req, res) {
+  console.log("check session: " + req.session.user.userID);
   console.log(req.body.noteTitle);
   console.log(req.body.noteIntroduction);
   console.dir(req.files['noteCover'][0]);
   var noteTitle = req.body.noteTitle;
   var noteIntroduction = req.body.noteIntroduction;
   var noteCoverUrl = '/'+req.files['noteCover'][0].filename;
-  console.log("check" + noteCoverUrl)
-  var userID = 6; // session
+  
+  console.log("check: " + noteCoverUrl);
+  
+  var userID = req.session.user.userID; // session
   var noteModel = require('../database/noteModel');
   var db = new noteModel();
   db.init();

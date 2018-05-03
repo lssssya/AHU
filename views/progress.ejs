@@ -8,32 +8,33 @@
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs') -%>
+	<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
-		<%- include('common/home-header.ejs',{data:data}) -%>
+		<%- include('common/home-header.ejs',{data:userpart}) -%>
     <div class="body">
 			<!--内容部分!-->
-				<% if(data.progress.length == 0){ %>
+				<% if(datapart.length == 0){ %>
 						<div class="blank-list"> there is no progress here </div>
 					<% }else{ %>	
 					<ul class="p-ul">
-						<% data.progress.forEach(function(item){ %>
+						<% datapart.forEach(function(item){ %>
 							<li class="p-items">
 								<div class="p-items-header">
 									<div class="user-pto">
-										<img src=<%= item.userPtoUrl %> >
+										<img src=<%= userpart.userPtoUrl %> >
 									</div>
 									<div class="user-info">
 										<div class="info-time">
-											<span><%= item.recordTime %></span>
+											<span><%= item.recordtime %></span>
 										</div>
 										<div class="user-nick">
-											
-											<%#  点击nickname去找user的主页 %>
-											<%#  点击noteTitle去找到note的页面 %>
-
-											<a href="#"><%= item.nickname %></a><span>更新了一个进展到&nbsp;</span><a href="#"><%= item.noteTitle %></a>
+											<% if(check) {%>
+												<a href="#">你</a>
+											<% }else{%>
+												<a href="/home/<%= userpart.userID%>/notelist"><%= userpart.nickname %></a>
+											<% }; %>
+											<span>更新了一个进展到&nbsp;</span><a href="/note/<%= item.noteID%>"><%= item.noteTitle %></a>
 										</div>
 									</div>
 								</div>

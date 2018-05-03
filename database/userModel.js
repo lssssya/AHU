@@ -8,14 +8,14 @@ function userModel(){
       user: 'root',
       password: 'xiaozhu32',
       port: '3306',
-      database: 'xjmtest'
+      database: 'xjmtest1'
     });
     connection.connect();
     
   };
   this.insert = function(username,pw,nickname,callback){
-    var userAddSql = 'insert into user(username,password,nickname) value(?,?,?)';
-    var userAddSql_params = [username,pw,nickname];
+    var userAddSql = 'insert into user(username,password,nickname,userPtoUrl) value(?,?,?,?)';
+    var userAddSql_params = [username,pw,nickname,'/img/sysPto.jpg'];
     connection.query(userAddSql,userAddSql_params,function(err,result){
       callback(err,result);
     });

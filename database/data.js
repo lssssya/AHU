@@ -31,7 +31,7 @@ var data = {
 
 
   follower:{
-    userID: "6",
+    userID: "1",
     userPtoUrl: "/1.jpg",
     nickname: "xiaonvyo",
     userlist: [
@@ -54,7 +54,7 @@ var data = {
   },
 
   follow:{
-    userID: "6",
+    userID: "1",
     userPtoUrl: "/1.jpg",
     nickname: "xiaonvyo",
     notelist:[
@@ -89,29 +89,25 @@ var data = {
   },
 
   progress:{
-    userID: "6",
+    userID: "1",
     userPtoUrl: "/1.jpg",
     nickname: "xiaonvyo",
     progress:[
       {
-        nickname: "dayaozi",
-        userPtoUrl: "/4.jpg",
         noteTitle: "yoyoyo",
         noteID: "1",
         recordID: "1",
         recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        recordTime: "2018",
+        recordtime: "2018",
         recordLiked: 10,
         recordComment: 1
       },
       { 
-        nickname: "dayaozi",
-        userPtoUrl: "/4.jpg",
         noteTitle: "yoyoyo",
         noteID: "1",
         recordID: "2",
         recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        recordTime: "2018",
+        recordtime: "2018",
         recordLiked: 10,
         recordComment: 1
       }
@@ -138,18 +134,20 @@ var data = {
 
   /* notedata  */
   notedata:{
-    userID: "",
-    userPtoUrl: "",
-    nickname: "tracer",
-    noteID: "",
-    noteTitle: "11111",
-    noteCoverUrl: "/2.jpg",
-    noteCountProgress: 10,
-    noteCountFollower: 13,
-    noteCountLiked: 12,
-    noteCountComment: 10,
-    noteIntroduction: "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
-    progress: [
+    notePart:{
+      userID: "1",
+      userPtoUrl: "",
+      nickname: "tracer",
+      noteID: "1",
+      noteTitle: "11111",
+      noteCoverUrl: "/2.jpg",
+      noteCountProgress: 10,
+      noteCountFollower: 13,
+      noteCountLiked: 12,
+      noteCountComment: 10,
+      noteIntroduction: "啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊",
+    },
+    recordPart: [
       {
         recordID: "aaa",
         recordContent: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -161,11 +159,6 @@ var data = {
             userID:"",
             nickname:"tracer",
             comment:"nice day"
-          },
-          {
-            userID: "",
-            nickname: "tracer",
-            comment: "nice day"
           }
         ]
         

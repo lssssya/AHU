@@ -1,128 +1,215 @@
 const express = require('express');
 const router = express.Router();
 
+const checkLogin = require('../middlewares/checklogin').checkLogin;
+const isYourself = require('../middlewares/isyou').isYourself;
+const homeModel = require('../database/homeModel');
+const db = new homeModel();
 
 /* part -- notelist */
-
-router.get('/:userID/notelist', function (req, res) {
-  console.dir(req.params.userID);
+router.get('/:userID/notelist', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
-  var homeModel = require('../database/homeModel');
-  var db = new homeModel();
+  var userPart,// 将模版的数据块分为3个部分
+      dataPart = new Array();
+      sessionPart = {
+        userID: req.session.user.userID,
+        nickname: req.session.user.nickname,
+        userPtoUrl: req.session.user.userPtoUrl
+  };
   db.init();
-  db.homePage(ID, function (err, result){
+  db.identity(ID,function (err,result) {
     if(err){
       console.log(err);
-      res.json({"ret_code":2});
+      res.json({ "ret_code": 2 });
     }else{
-      function forHomePageData() {};
-      forHomePageData.prototype.userID = ID;//从session取出
-      forHomePageData.prototype.nickname = "xiannv"; //从session取出
-      forHomePageData.prototype.userPtoUrl = "/1.jpg"; //从session取出
-      forHomePageData.prototype.notelist = new Array();
-      result.forEach(function(item){
-        forHomePageData.prototype.notelist.push(item);
+      userPart = Object.create(result[0]);
+      db.homePage(ID, function (err, result){
+        if(err){
+          console.log(err);
+          res.json({"ret_code":2});
+        }else{
+          dataPart = result.concat();
+          res.render('notelist', {
+            sessionpart : sessionPart, 
+            datapart : dataPart ,
+            userpart : userPart ,
+            check : req.isyourself });
+        };
       });
-      var data = new forHomePageData();
-      console.log(data.notelist);
-      res.render('notelist', { data: data });
     };
   });
-  
 });
-
 
 /* part -- progress  */
-
-router.get('/:userID/progress', function (req, res) {
-  var data = require('../database/data').progress;
-  //根据数据库将数组调用进来  写在database中 形成 progress-model.js
-  res.render('progress', { data: data });
+router.get('/:userID/progress', checkLogin, isYourself, function (req, res) {
+  var ID = parseInt(req.params.userID);
+  var userPart,// 将模版的数据块分为3个部分
+      dataPart = new Array();
+      sessionPart = {
+        userID: req.session.user.userID,
+        nickname: req.session.user.nickname,
+        userPtoUrl: req.session.user.userPtoUrl
+  };
+  db.init();
+  db.identity(ID,function(err,result){
+    if(err){
+      console.log(err);
+      res.json({ "ret_code": 2 });
+    }else{
+      userPart = Object.create(result[0]);
+      db.progressPage(ID, function (err, result) {
+        if (err) {
+          console.log(err);
+          res.json({ "ret_code": 2 });
+        } else {
+          dataPart = result.concat();
+          res.render('progress', {
+            sessionpart: sessionPart,
+            datapart: dataPart,
+            userpart: userPart,
+            check: req.isyourself
+          });
+        };
+      });
+    };
+  });
 });
-
 
 /* part -- follow */
-router.get('/:userID/follow', function (req, res) {
+router.get('/:userID/follow', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
-  var homeModel = require('../database/homeModel');
-  var db = new homeModel();
+  var userPart,// 将模版的数据块分为3个部分
+      dataPart = new Array();
+      sessionPart = {
+        userID: req.session.user.userID,
+        nickname: req.session.user.nickname,
+        userPtoUrl: req.session.user.userPtoUrl
+  };
   db.init();
-  db.followUserPage(ID, function (err, result) {
+  db.identity(ID,function(err,result){
     if (err) {
       console.log(err);
       res.json({ "ret_code": 2 });
-    } else {
-      console.log(result);
-      function forFollowPagedata() { };
-      forFollowPagedata.prototype.userID = ID;//从session取出
-      forFollowPagedata.prototype.nickname = "xiannv"; //从session取出
-      forFollowPagedata.prototype.userPtoUrl = "/1.jpg"; //从session取出
-      forFollowPagedata.prototype.userlist = new Array();
-      result.forEach(function (item) {
-        forFollowPagedata.prototype.userlist.push(item);
+    }else{
+      userPart = Object.create(result[0]);
+      db.followUserPage(ID, function (err, result) {
+        if (err) {
+          console.log(err);
+          res.json({ "ret_code": 2 });
+        } else {
+          dataPart = result.concat();
+          res.render('follow-user', { 
+            sessionpart: sessionPart,
+            datapart: dataPart,
+            userpart: userPart,
+            check: req.isyourself
+          });
+        }; 
       });
-      var data = new forFollowPagedata();
-      console.dir(data.userlist);
-      res.render('follow-user', { data: data });
     };
   });
 });
-
-router.get('/:userID/follow/note', function (req, res) {
+/* 想个办法把这两个合并了   大概也就是正则表达式的问题吧 */
+router.get('/:userID/follow/user', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
-  var homeModel = require('../database/homeModel');
-  var db = new homeModel();
+  var userPart,// 将模版的数据块分为3个部分
+      dataPart = new Array();
+      sessionPart = {
+        userID: req.session.user.userID,
+        nickname: req.session.user.nickname,
+        userPtoUrl: req.session.user.userPtoUrl
+  };
   db.init();
-  db.followNotePage(ID, function (err, result) {
+  db.identity(ID, function (err, result) {
     if (err) {
       console.log(err);
       res.json({ "ret_code": 2 });
     } else {
-      function forFollowPagedata() { };
-      forFollowPagedata.prototype.userID = ID;//从session取出
-      forFollowPagedata.prototype.nickname = "xiannv"; //从session取出
-      forFollowPagedata.prototype.userPtoUrl = "/1.jpg"; //从session取出
-      forFollowPagedata.prototype.notelist = new Array();
-      result.forEach(function (item) {
-        forFollowPagedata.prototype.notelist.push(item);
+      userPart = Object.create(result[0]);
+      db.followUserPage(ID, function (err, result) {
+        if (err) {
+          console.log(err);
+          res.json({ "ret_code": 2 });
+        } else {
+          dataPart = result.concat();
+          res.render('follow-user', {
+            sessionpart: sessionPart,
+            datapart: dataPart,
+            userpart: userPart,
+            check: req.isyourself
+          });
+        };
       });
-      var data = new forFollowPagedata();
-      console.dir(data.notelist);
-      res.render('follow-note', { data: data });
     };
   });
 });
-
-router.get('/:userID/follow/user', function (req, res) {
+router.get('/:userID/follow/note', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
-  var homeModel = require('../database/homeModel');
-  var db = new homeModel();
+  var userPart,// 将模版的数据块分为3个部分
+      dataPart = new Array();
+      sessionPart = {
+        userID: req.session.user.userID,
+        nickname: req.session.user.nickname,
+        userPtoUrl: req.session.user.userPtoUrl
+  };
   db.init();
-  db.followUserPage(ID, function (err, result) {
-    if (err) {
+  db.identity(ID,function(err,result){
+    if(err){
       console.log(err);
       res.json({ "ret_code": 2 });
-    } else {
-      console.log(result);
-      function forFollowPagedata() { };
-      forFollowPagedata.prototype.userID = ID;//从session取出
-      forFollowPagedata.prototype.nickname = "xiannv"; //从session取出
-      forFollowPagedata.prototype.userPtoUrl = "/1.jpg"; //从session取出
-      forFollowPagedata.prototype.userlist = new Array();
-      result.forEach(function (item) {
-        forFollowPagedata.prototype.userlist.push(item);
+    }else{
+      userPart = Object.create(result[0]);
+      db.followNotePage(ID, function (err, result) {
+        if (err) {
+          console.log(err);
+          res.json({ "ret_code": 2 });
+        } else {
+          datapart = result.concat();
+          res.render('follow-note', {
+            sessionpart : sessionPart,
+            userpart : userPart,
+            datapart : dataPart,
+            check : req.isyourself
+          });
+        };
       });
-      var data = new forFollowPagedata();
-      console.dir(data.userlist.length);
-      res.render('follow-user', { data: data });
     };
   });
 });
 
 /* part -- follower */
-router.get('/:userID/follower', function (req, res) {
-  var data = require('../database/data').follower
-  res.render('follower',{data,data});
+router.get('/:userID/follower', checkLogin, isYourself, function (req, res) {
+  var ID = parseInt(req.params.userID);
+  var userPart,// 将模版的数据块分为3个部分
+      dataPart = new Array();
+      sessionPart = {
+        userID: req.session.user.userID,
+        nickname: req.session.user.nickname,
+        userPtoUrl: req.session.user.userPtoUrl
+  };
+  db.init();
+  db.identity(ID, function (err, result) {
+    if (err) {
+      console.log(err);
+      res.json({ "ret_code": 2 });
+    } else {
+      userPart = Object.create(result[0]);
+      db.followerPage(ID, function (err, result) {
+        if (err) {
+          console.log(err);
+          res.json({ "ret_code": 2 });
+        } else {
+          dataPart = result.concat();
+          res.render('follower', {
+            sessionpart: sessionPart,
+            userpart: userPart,
+            datapart: dataPart,
+            check: req.isyourself
+          });
+        }
+      });
+    };
+  });
 });
 
 

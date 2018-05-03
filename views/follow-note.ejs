@@ -8,28 +8,27 @@
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs',{data:data}) -%>
+	<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
-    <%- include('common/home-header.ejs',{data:data}) -%>
+    <%- include('common/home-header.ejs',{data:userpart,check:check}) -%>
     <div class="body">
       <!--内容部分!-->
       <div class="follow-main">
 	      <div class="follow-header">
 	      	<ul class="nav nav-pills">
-	  				<li><a href="/home/<%= data.userID%>/follow/user">用户</a></li>
-	    			<li><a href="/home/<%= data.userID%>/follow/note">记本</a></li>
+	  				<li><a href="/home/<%= userpart.userID%>/follow/user">用户</a></li>
+	    			<li><a href="/home/<%= userpart.userID%>/follow/note">记本</a></li>
 	    		</ul>
 	    	</div>
 				<div class="notelist">
-					<% if(data.notelist.length == 0){ %>
-						<div class="blank-list"> there is no user here </div>
+					<% if(datapart.length == 0){ %>
+						<div class="blank-list"> there is no note here </div>
 					<% }else{ %>
 						<ul class="note-list">
-							<% data.notelist.forEach(function(item){ %>						
+							<% datapart.forEach(function(item){ %>						
 							<li class="notelist-item">
-								<%# 点击note跳转note页面 %>
-								<a href="#" class="notelist-pic"><img src=<%= item.noteCoverUrl %> ></a>
+								<a href="/note/<%= item.noteID%> " class="notelist-pic"><img src="<%= item.noteCoverUrl %>" ></a>
 								<div class="notelist-title">
 									<p><%= item.noteTitle %><p>
 								</div>

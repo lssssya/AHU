@@ -8,33 +8,33 @@
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs',{data:data}) -%>
+	<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
-    <%- include('common/home-header.ejs',{data:data}) -%>
+    <%- include('common/home-header.ejs',{data:userpart,check:check}) -%>
     <div class="body">
       <!--内容部分!-->
       <div class="follow-main">
 	      <div class="follow-header">
 	      	<ul class="nav nav-pills">
-	  				<li><a href="/home/<%= data.userID %>/follow/user">用户</a></li>
-	    			<li><a href="/home/<%= data.userID %>/follow/note">记本</a></li>
+	  				<li><a href="/home/<%= userpart.userID %>/follow/user">用户</a></li>
+	    			<li><a href="/home/<%= userpart.userID %>/follow/note">记本</a></li>
 	    		</ul>
 	    	</div>
 				<div class="userlist">
-					<% if(data.userlist.length === 0 ){ %>
+					<% if(datapart.length === 0 ){ %>
 						<div class="blank-list"> there is no user here </div>
 					<% }else{ %>
 					<ul>
-					<% data.userlist.forEach(function(item){ %>
+					<% datapart.forEach(function(item){ %>
 						<li class="userlist-item">
 							<div class="f-items">
 								<div class="user-pto">
-									<img src=<%= item.userPtoUrl %>>
+									<img src="<%= item.userPtoUrl %>">
 								</div>
 								<div class="user-info">
 									<div class="user-nick">
-										<a href="#"><%= item.nickname%></a><button type="button" class="btn btn-primary btn-lg">已关注</button>
+										<a href="/home/<%= item.userID %>/notelist"><%= item.nickname%></a><button type="button" class="btn btn-primary btn-lg">已关注</button>
 									</div>
 								</div>	
 							</div>

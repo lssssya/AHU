@@ -10,7 +10,11 @@
     <li role="presentation"><a href="/home/<%= data.userID %>/progress">进展</a></li>
     <li role="presentation"><a href="/home/<%= data.userID %>/follow">关注</a></li>
     <li role="presentation"><a href="/home/<%= data.userID %>/follower">粉丝</a></li>
+    <% if (check){ %>
     <li role="presentation" class="pull-right"><a href="/newnote"><span class="glyphicon glyphicon-plus">&nbsp;</span>新增记本</a></li>
+    <% }else{%>
+    <li role="presentation" class="pull-right"><a href="/followclick/<%= data.userID %>"><span class="glyphicon glyphicon-plus">&nbsp;</span>关注</a></li>
+    <% };%>
   </ul>
 </div>
 
