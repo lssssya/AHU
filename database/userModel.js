@@ -11,8 +11,12 @@ function userModel(){
       database: 'xjmtest1'
     });
     connection.connect();
-    
   };
+  this.end = function () {
+    connection.end();
+  };
+
+
   this.insert = function(username,pw,nickname,callback){
     var userAddSql = 'insert into user(username,password,nickname,userPtoUrl) value(?,?,?,?)';
     var userAddSql_params = [username,pw,nickname,'/img/sysPto.jpg'];
@@ -28,6 +32,29 @@ function userModel(){
     });
     connection.end();
   };
+  
+  this.settingUpdate = function (userID, nickname, gender, signUp, callback) {
+    var commonSql = 'Update user set nickname="' + nickname + '", sex="' + gender + '", qianming="' + signUp + '" where userID="' + userID + '"';
+    connection.query(commonSql, function (err, result) {
+      callback(err, result);
+    });
+    connection.end();
+  }
+  this.comparePassword = function (userID, callback) {
+    var commonSql = 'select password from user where userID ="' + userID + '"';
+    connection.query(commonSql, function (err, result) {
+      callback(err, result);
+    });
+  }
+
+  
+  this.passwordChange = function (userID, pw, callback) {
+    var commonSql = 'Update user set password="' + pw + '" where userID="' + userID + '"';
+    connection.query(commonSql, function (err, result) {
+      callback(err, result);
+    });
+    connection.end();
+  }
 
 };
 module.exports = userModel;

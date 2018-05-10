@@ -8,10 +8,10 @@
   <div class="menu homeMenu">
     <ul class="nav nav-pills nav-stacked">
       <li role="presentation"><a href="/home/<%= data.userID %>/notelist">主页</a></li>
-      <li role="presentation"><a href="/friending">关注</a></li>
+      <li role="presentation"><a href="/friending/<%= data.userID %>">关注</a></li>
       <li role="presentation"><a href="#">发现</a></li>
       <li role="presentation"><a href="#">消息</a></li>
-      <li role="presentation"><a href="#">设置</a></li>
+      <li role="presentation"><a href="/setting/<%= data.userID %>">设置</a></li>
     </ul>
   </div>			
 </div>

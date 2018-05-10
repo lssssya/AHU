@@ -5,6 +5,9 @@ const router = express.Router();
 const checkLogin = require('../middlewares/checklogin').checkLogin;
 const isYourNote = require('../middlewares/isyou').isYourNote;
 
+const noteModel = require('../database/noteModel');
+const db = new noteModel();
+
 function insertinto(arr1,arr2){ //把评论内容内嵌到每一个record中
     arr1.forEach(function(item1) {
       item1['comment'] = [];
@@ -19,18 +22,14 @@ function insertinto(arr1,arr2){ //把评论内容内嵌到每一个record中
 
 router.get('/:noteID',checkLogin,isYourNote, function(req,res){  
   var noteID = parseInt(req.params.noteID);
-  var noteModel = require('../database/noteModel');
-  var db = new noteModel();
   db.init();
   var recordArray = new Array();
   var commentArray = new Array();
-  // var newarr = new Array();
   var notePart,recordPart = new Array();
   db.searchNote(noteID,function (err,result) {
     if(err){
       res.json({"ret_code":2});
     }else{
-      // noteArray = result.concat();
       notePart = Object.create(result[0]);
       db.searchRecord(noteID,function(err,result){
         if(err){
@@ -59,10 +58,51 @@ router.get('/:noteID',checkLogin,isYourNote, function(req,res){
       });
     }
   });
+});
+router.post('/:noteID/addcomment', checkLogin, isYourNote,function(req,res){
+  db.init();
+  db.searchRecord(parseInt(req.params.noteID),function(err,result){
+    if (err) {
+      console.log(err);
+      res.json({ "ret_code": 2 });
+    } else {
+        db.addcomment(
+        parseInt(result[0].userID),
+        req.session.user.userID,
+        req.body.recordID,
+        req.body.comment,
+        function (err,result) { 
+          if (err) {
+            console.log(err);
+            res.json({ "ret_code": 2 });
+          } else {
+            res.json({ 
+              "ret_code": 0 ,
+              "userID": req.session.user.userID,
+              "nickname": req.session.user.nickname
+            });
+          }
+        }
+      );
+    }
+  })
   
 });
 
-router.post('/:noteID',function(req,res){
+router.post('/:noteID/addrecord',checkLogin,isYourNote,function(req,res){
+  db.init();
+  db.addRecord(
+    parseInt(req.params.noteID), 
+    req.body.recordContent, 
+    req.session.user.userID,
+    function(err,result){
+      if(err){
+        console.log(err);
+        res.json({"ret_code":2});
+      } else {
+        res.json({"ret_code":0});
+      }
+  });
 
 });
 

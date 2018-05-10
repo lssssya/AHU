@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>不忘_登陆_测试</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/setting.css">
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+    <script src="/lib/jquery/jquery.js"></script>
+</head>
+<body>
+<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
+<!--右边下部分，网站的主体页面-->
+<script>
+    var snickname="";   //昵称
+    var ssex="";        //性别
+    var ssignUp="";     //个性签名
+    var userID="";      //用户ID
+</script>
+<div class="main">
+    <%- include('common/setting-head.ejs',{data:sessionpart}) -%>
+    <div class="body">
+      <div class="loginform">
+        <form>
+					<div class="form-group">
+	          <label for="nickname" class="sr-only"></label>
+              <input type="text" class="form-control" id="nickname" placeholder="昵称" value="">
+          </div>
+          <div class="settingSex" align="center">
+            <label class="settinglabel">
+            <input class="settingradio" type="radio" id="sex" name="sex" value="男">
+            <span class="settingradioInput"></span>男
+            </label>
+            <label class="settinglabel">
+						<input class="settingradio" type="radio" id="sex" name="sex" value="女">
+						<span class="settingradioInput"></span>女
+				    </label>
+          </div>
+          <div class="input-group-lg">
+						<label for="signUp" class="sr-only"></label>
+						<textarea id="signUp" placeholder="签名" class="settingArea"></textarea>
+					</div>
+						<button type="submit" class="btn btn-default " id="confirSet">提交</button>
+				</form>
+			</div>
+	  </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $("#confirSet").click(function(event){
+            event.preventDefault();
+            var nickname = $("#nickname").val();
+            var gender = $("#sex").val();
+						var signUp = $("#signUp").val();
+            var data = {"gender":gender,"nickname":nickname,"signUp":signUp};
+            $.ajax({
+                type: 'POST',
+                url: window.location.pathname,
+                data: data,
+                success: function(data) {
+                    if (data.ret_code === 0 ){
+                        alert("修改成功！");
+                    };
+                    if(data.ret_code === 1 ){
+                        alert("修改失败！");
+                    };
+                }
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

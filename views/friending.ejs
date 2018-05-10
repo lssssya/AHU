@@ -8,50 +8,114 @@
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs') -%>
+	<%- include('common/home-aside.ejs',{data: sessionpart }) -%>
 	<!--右边下部分，网站的主体页面-->
   <div class="main">
     <div class="page-title">动态</div>
     <hr class="cutLine" />
     <div class="body">
-      <ul class="p-ul">
-        <% data.progress.forEach(function(item){ %>
-          <li class="p-items">
+      <% if(datapart.length == 0){ %>
+        <div class="blank-list"> 还没有动态哦 </div>
+      <% }else{ %>	
+        <ul class="p-ul">
+        <% datapart.forEach(function(item){ %>
+          <li class="p-items" id="<%= item.recordID%> ">
             <div class="p-items-header">
               <div class="user-pto">
                 <img src=<%= item.userPtoUrl %> >
               </div>
-              <div class="user-info">
+              <div class="user-info" id="<%= item.userID%>">
                 <div class="info-time">
-                  <span><%= item.recordTime %></span>
+                  <span><%= item.recordtime %></span>
                 </div>
                 <div class="user-nick">
-                  
-                  <%#  点击nickname去找user的主页 %>
-                  <%#  点击noteTitle去找到note的页面 %>
-
-                  <a href="#"><%= item.nickname %></a><span>更新了一个进展到&nbsp;</span><a href="#"><%= item.noteTitle %></a>
+                  <a href="/home/<%= item.userID%>/notelist"><%= item.nickname %></a>
+                  <span>更新了一个进展到&nbsp;</span><a href="/note/<%= item.noteID%>"><%= item.noteTitle %></a>
                 </div>
               </div>
             </div>
-            <div class="p-items-content">
-              <div class="user-content">
-                <p><%= item.recordContent %></p>
+              <div class="r-items-content">
+                <div class="record-content"><p><%= item.recordContent %></p></div>     
               </div>
-            </div>
-            <div class="p-items-foot">
+              <div class="r-items-foot">
               <hr class="cutLine" />
               <div class="items-info">
-                  <a id="liked">赞</a><span>&nbsp;<%= item.recordLiked %> &nbsp;</span>
-                  <a id="comment">评论</a><span>&nbsp;<%= item.recordComment %> &nbsp;</span>
+                <a class="rd-lk">赞&nbsp;&nbsp;</a><span><%= item.recordLiked %></span>
+                <a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordComment %></span>
               </div>
-            </div>
+              <div class="commentbox" id="<%= item.recordID %>commentbox" >
+                <div class="panel panel-default">
+                  <ul class="list-group" id="ul-cmt">
+                    <% item.comment.forEach(function(item){ %>
+                      <li class="list-group-item"><a href="/home/<%= item.userID%>/notelist"><%= item.nickname %></a><span>&nbsp;:&nbsp;<%= item.comment %></span></li>
+                    <%}); %>
+                  </ul>
+                </div>
+                <div>
+                  <form class="form-inline">  
+                    <input type="text" class="form-control rd-input" >
+                    <button type="submit" class="btn btn-primary rd-btn">发布</button>
+                  </form>
+                </div>
+              </div>
           </li>
         <%});%>
       </ul>
+      <% };%>
     </div>
   </div>
 <script>
+
+$('.rd-lk').on('click',function(event){
+    event.preventDefault();
+    var liked = parseInt($(this.nextSibling).html());
+    liked++;//自加1
+    $(this.nextSibling).html(liked);
+    // $.ajax({
+    //   type: 'POST',
+    //   url: '/note/'
+    // });
+  });
+
+  $('.rd-cmt').on('click',function(event){
+    event.preventDefault();
+    if($(this).parent().next().css("display")=="none"){  
+        $(this).parent().next().show();  
+      }else{  
+        $(this).parent().next().hide();
+      };
+  });
+
+  $('.rd-btn').on('click',function(event){
+    event.preventDefault();
+    var comment = $(this).prev().val();
+    var recordID = $(this).parent().parent().parent().parent().parent().attr('id');//获得当前评论中 record的ID 
+    var userID = $(this).parent().parent().parent().parent().parent().find('.user-info').attr('id');
+    var ul = $(this).parent().parent().prev().find('#ul-cmt');
+    var data = {
+      "comment":comment,
+      "recordID":recordID,
+      "userID":userID
+    };
+    $.ajax({
+      type: 'POST',
+      url: '/friending',
+      data: data,
+      success:function(data){
+        if(data.ret_code === 0 ){
+          alert('评论成功！');
+            var newLi = document.createElement('li');
+            var text = '<li class="list-group-item"><a href="/home/'+data.userID+'/notelist">'+data.nickname+'</a><span>&nbsp;:&nbsp;'+comment+'</span></li>';
+            newLi.innerHTML=text;
+            setTimeout(function(){
+              ul.append(newLi);
+            },1000);// 假装上传且实时更新 
+        }
+      }
+    });
+
+  });
+
 </script>
 </body>
 </html>

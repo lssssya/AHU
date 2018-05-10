@@ -18,6 +18,8 @@ const homepageRouter = require('./routes/home');
 const noteRouter = require('./routes/note');
 const friendingRouter = require('./routes/friending');
 const newnoteRouter = require('./routes/newnote');
+const settingRouter = require('./routes/setting');
+const changepwRouter = require('./routes/changepw');
 
 /* 
   基本设置
@@ -58,7 +60,8 @@ app.use('/home',homepageRouter);
 app.use('/newnote',newnoteRouter);
 app.use('/note',noteRouter);
 app.use('/friending',friendingRouter);
-
+app.use('/setting', settingRouter);
+app.use('/changepw', changepwRouter);
 
 
 

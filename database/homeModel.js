@@ -10,6 +10,10 @@ function homeModel(){
     });
     connection.connect();
   };
+  this.end = function () {
+    connection.end();
+  };
+
 
   this.identity=function(userID,callback){
     // get who you want to 

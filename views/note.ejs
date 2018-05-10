@@ -58,22 +58,24 @@
 					<% }else{ %>	
           <ul class="p-ul">
             <% recordpart.forEach(function(item){ %>
-              <li class="record-items">
+              <li class="record-items" id="<%= item.recordID%> ">
                 <div class="r-items-header">
                   <div class="info-time"><span><%= item.recordtime %></span></div>
                 </div>
                 <div class="r-items-content">
-                  <div class="record-content"> <p><%= item.recordContent %></p></div>     
+                  <div class="record-content"><p><%= item.recordContent %></p></div>     
                 </div>
                 <div class="r-items-foot">
                   <hr class="cutLine" />
                   <div class="items-info">
                     <a class="rd-lk">赞&nbsp;&nbsp;</a><span><%= item.recordLiked %></span>
                     <a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordComment %></span>
+                  <% if(checknote){%>
                     <a id="delete" style="float:right;margin-right:10px;">删除</a>
                     <a id="edit" style="float:right;margin-right:10px;">编辑</a>
+                  <% }; %>
                   </div>
-                  <div class="commentbox" id=<%= item.recordID %>commentbox >
+                  <div class="commentbox" id="<%= item.recordID %>commentbox" >
                     <div class="panel panel-default">
                       <ul class="list-group" id="ul-cmt">
                         <% item.comment.forEach(function(item){ %>
@@ -127,39 +129,55 @@
   $('.rd-btn').on('click',function(event){
     event.preventDefault();
     var comment = $(this).prev().val();
+    var ID = $(this).parent().parent().parent().parent().parent().attr('id');//获得当前评论中 record的ID 
     var ul = $(this).parent().parent().prev().find('#ul-cmt');
-    alert(ul);
-    var newLi = document.createElement('li');
-    var text = '<li class="list-group-item"><a href="#">'+"tracer"+'</a><span>&nbsp;:&nbsp;'+comment+'</span></li>';
-    newLi.innerHTML=text;
-    setTimeout(function(){
-      ul.append(newLi);
-    },1000);// 假装上传且实时更新  其实是Ajax 可以完成但是先不写
-    // $.ajax({
-    //   type: 'POST',
-    //   url: '/note/:id/addcomment'
-    //   data: data,
-    //   success:function(data){
-    //   }
-    // });
+    // var newLi = document.createElement('li');
+    // var text = '<li class="list-group-item"><a href="#">'+"tracer"+'</a><span>&nbsp;:&nbsp;'+comment+'</span></li>';
+    // newLi.innerHTML=text;
+    // setTimeout(function(){
+    //   ul.append(newLi);
+    // },1000);// 假装上传且实时更新 
+    var data = {
+      "comment":comment,
+      "recordID":ID
+    };
+    $.ajax({
+      type: 'POST',
+      url: window.location.pathname+'/addcomment',
+      data: data,
+      success:function(data){
+        if(data.ret_code === 0 ){
+          alert('评论成功！');
+            var newLi = document.createElement('li');
+            var text = '<li class="list-group-item"><a href="/home/'+data.userID+'/notelist">'+data.nickname+'</a><span>&nbsp;:&nbsp;'+comment+'</span></li>';
+            newLi.innerHTML=text;
+            setTimeout(function(){
+              ul.append(newLi);
+            },1000);// 假装上传且实时更新 
+        }
+      }
+    });
 
   });
 
-  // $("#btn").click(function(evetn){
-  //   event.preventDefault();
-  //   var addRecord = $("#addrecord").val();
-  //   var data = { "recordContent" : addRecord };
-  //   $.ajax({
-  //     type: 'POST',
-  //     url: '/note/:id/addrecord',
-  //     data: data,
-  //     success:function(data){
-  //       //  my solution is refreshing this page or redirecting this page
-  //     }
-  //   });
-  // });
 
-
+  $("#btn").click(function(event){
+    event.preventDefault();
+    var addRecord = $("#addRecord").val();
+    var data = { "recordContent" : addRecord };
+    alert(data);
+    $.ajax({
+      type: 'POST',
+      url: window.location.pathname+'/addrecord',
+      data: data,
+      success:function(data){
+        if(data.ret_code === 0 ){
+          alert('添加成功！');
+          location.reload();
+        }
+      }
+    });
+  });
 
 
 </script>

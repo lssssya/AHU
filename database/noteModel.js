@@ -13,6 +13,8 @@ function noteModel(){
   this.end = function(){
     connection.end();
   };
+
+
   this.searchNote = function(noteID,callback){
     var sql = 'select * from note where noteID = "'+noteID + '"';
     connection.query(sql,function (err,result) {
@@ -43,11 +45,19 @@ function noteModel(){
     connection.end();
   };
 
-  this.addRecord = function (noteID, recordContent, callback) {
-    var addRecordSql;//insert
-    var addRecordSql_parmas;
+  this.addRecord = function (noteID, recordContent,userID, callback) {
+    var addRecordSql = 'insert into record(noteID,recordContent,userID) value(?,?,?)'
+    var addRecordSql_parmas = [noteID,recordContent,userID];
     connection.query(addRecordSql, addRecordSql_parmas, function (err, result) {
       callback(err, result);
+    });
+    connection.end();
+  };
+  this.addcomment = function (user1ID, user2ID, recordID, comment,callback){
+    var sql = 'insert into comment(user1ID,user2ID,recordID,comment) value(?,?,?,?)'
+    var sql_params = [user1ID,user2ID,recordID,comment];
+    connection.query(sql,sql_params,function (err,result) {
+      callback(err,result);      
     });
     connection.end();
   };
