@@ -45,6 +45,14 @@ function noteModel(){
     connection.end();
   };
 
+  // this.deleteRecord = function(recordID,callback){
+  //   var sql = 'delete from record where recordID = "'+recordID+'"';
+  //   connection.query(sql,function(err,result){
+  //     callback(err,result);
+  //   });
+  //   connection.end();
+  // };
+
   this.addRecord = function (noteID, recordContent,userID, callback) {
     var addRecordSql = 'insert into record(noteID,recordContent,userID) value(?,?,?)'
     var addRecordSql_parmas = [noteID,recordContent,userID];
@@ -62,9 +70,9 @@ function noteModel(){
     connection.end();
   };
 
-  this.liked = function (noteID, recordID, callback) {
-    var likedSql;//update or insert
-    var likedSql_parmas;
+  this.liked = function (recordID, userID, callback) {
+    var likedSql = 'insert into liked(recordID,userID) value(?,?)';//update or insert
+    var likedSql_parmas = [recordID,userID];
     connection.query(likedSql, likedSql_parmas, function (err, result) {
       callback(err, result);
     });

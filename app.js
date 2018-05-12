@@ -6,20 +6,22 @@ const bodyParser = require('body-parser');
 /* 这就是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象。*/
 const cookieParser = require('cookie-parser');
 const session = require("express-session");
-
+const router = express.Router();
 
 /* 
   路由接口列表
 */
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
-const aboutRouter = require('./routes/about');
 const homepageRouter = require('./routes/home');
 const noteRouter = require('./routes/note');
 const friendingRouter = require('./routes/friending');
 const newnoteRouter = require('./routes/newnote');
 const settingRouter = require('./routes/setting');
 const changepwRouter = require('./routes/changepw');
+const likedRouter = require('./routes/liked');
+const followRouter = require('./routes/follow');
+
 
 /* 
   基本设置
@@ -52,8 +54,12 @@ app.use(express.static('./uploads'));
 /*
   Router 
 */
-app.use('/',aboutRouter);
-app.use('/about', aboutRouter);
+router.get('/', function (req, res) {
+  res.render('about');
+});
+router.get('/about', function (req, res) {
+  res.render('about');
+});
 app.use('/login', loginRouter);
 app.use('/register',registerRouter);
 app.use('/home',homepageRouter);
@@ -62,6 +68,9 @@ app.use('/note',noteRouter);
 app.use('/friending',friendingRouter);
 app.use('/setting', settingRouter);
 app.use('/changepw', changepwRouter);
+app.use('/liked',likedRouter);
+app.use('/follow',followRouter);
+
 
 
 

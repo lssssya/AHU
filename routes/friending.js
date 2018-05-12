@@ -6,6 +6,7 @@ const isYourself = require('../middlewares/isyou').isYourself;
 const friendingModel = require('../database/friendingModel');
 const db = new friendingModel();
 
+
 function insertinto(arr1, arr2) { //把评论内容内嵌到每一个record中
   arr1.forEach(function (item1) {
     item1['comment'] = [];
@@ -18,7 +19,7 @@ function insertinto(arr1, arr2) { //把评论内容内嵌到每一个record中
   return arr1;
 };
 
-router.post('/', checkLogin, function (req, res) {
+router.post('/addcomment', checkLogin, function (req, res) {
   var noteModel = require('../database/noteModel');
   var database = new noteModel();
   database.init();

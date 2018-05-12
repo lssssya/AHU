@@ -59,35 +59,6 @@ router.get('/:noteID',checkLogin,isYourNote, function(req,res){
     }
   });
 });
-router.post('/:noteID/addcomment', checkLogin, isYourNote,function(req,res){
-  db.init();
-  db.searchRecord(parseInt(req.params.noteID),function(err,result){
-    if (err) {
-      console.log(err);
-      res.json({ "ret_code": 2 });
-    } else {
-        db.addcomment(
-        parseInt(result[0].userID),
-        req.session.user.userID,
-        req.body.recordID,
-        req.body.comment,
-        function (err,result) { 
-          if (err) {
-            console.log(err);
-            res.json({ "ret_code": 2 });
-          } else {
-            res.json({ 
-              "ret_code": 0 ,
-              "userID": req.session.user.userID,
-              "nickname": req.session.user.nickname
-            });
-          }
-        }
-      );
-    }
-  })
-  
-});
 
 router.post('/:noteID/addrecord',checkLogin,isYourNote,function(req,res){
   db.init();

@@ -16,6 +16,15 @@ function userModel(){
     connection.end();
   };
 
+  this.follow = function(user1ID,user2ID,callback){
+    var sql = 'insert into focuse_user(user1ID,user2ID ) value(?,?)'
+    var sql_params = [user1ID, user2ID];
+    connection.query(sql,sql_params,function (err,result) {
+      callback(err,result);
+    })
+    connection.end();
+  }
+
 
   this.insert = function(username,pw,nickname,callback){
     var userAddSql = 'insert into user(username,password,nickname,userPtoUrl) value(?,?,?,?)';

@@ -66,17 +66,27 @@
   </div>
 <script>
 
-$('.rd-lk').on('click',function(event){
+  $('.rd-lk').on('click', function(event){
     event.preventDefault();
-    var liked = parseInt($(this.nextSibling).html());
-    liked++;//自加1
-    $(this.nextSibling).html(liked);
-    // $.ajax({
-    //   type: 'POST',
-    //   url: '/note/'
-    // });
+    var dom = $(this.nextSibling);
+    var likedcount = parseInt(dom.html());
+    var recordID = $(this).parent().parent().parent().attr('id');
+    var data = {"recordID":recordID};
+    $.ajax({
+      type: 'POST',
+      url: '/liked',
+      data: data,
+      success:function(data){
+        if(data.ret_code === 0 ){
+          alert('点赞成功！');
+          likedcount++;//自加1
+          dom.html(likedcount);
+        }else{
+          alert('点赞重复！');
+        }
+      }
+    });
   });
-
   $('.rd-cmt').on('click',function(event){
     event.preventDefault();
     if($(this).parent().next().css("display")=="none"){  
@@ -88,6 +98,8 @@ $('.rd-lk').on('click',function(event){
 
   $('.rd-btn').on('click',function(event){
     event.preventDefault();
+    var dom = $(this).parent().parent().parent().prev().find('.rd-cmt').next();
+    var commentcount = parseInt(dom.html());
     var comment = $(this).prev().val();
     var recordID = $(this).parent().parent().parent().parent().parent().attr('id');//获得当前评论中 record的ID 
     var userID = $(this).parent().parent().parent().parent().parent().find('.user-info').attr('id');
@@ -99,7 +111,7 @@ $('.rd-lk').on('click',function(event){
     };
     $.ajax({
       type: 'POST',
-      url: '/friending',
+      url: '/friending/addcomment',   //  借用了friending 的评论功能
       data: data,
       success:function(data){
         if(data.ret_code === 0 ){
@@ -109,11 +121,12 @@ $('.rd-lk').on('click',function(event){
             newLi.innerHTML=text;
             setTimeout(function(){
               ul.append(newLi);
+              commentcount++;//自加1
+              dom.html(commentcount);
             },1000);// 假装上传且实时更新 
         }
       }
     });
-
   });
 
 </script>
