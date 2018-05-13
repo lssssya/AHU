@@ -27,9 +27,9 @@
         <div class="note-detail-content">
           <ul>
             <li>进展<span>&nbsp;&nbsp;<%= notepart.recordcount %></span></li>
-            <li>关注<span>&nbsp;&nbsp;<%= notepart.allfocuse %></span></li>
-            <li>点赞<span>&nbsp;&nbsp;<%= notepart.allliked %></span></li>
-            <li>评论<span>&nbsp;&nbsp;<%= notepart.allcomment %></span></li>
+            <li>关注<span>&nbsp;&nbsp;<%= notepart.followcount %></span></li>
+            <li>点赞<span>&nbsp;&nbsp;<%= notepart.likedcount %></span></li>
+            <li>评论<span>&nbsp;&nbsp;<%= notepart.commentcount %></span></li>
           </ul>
         </div>
         <hr class="cutLine" />
@@ -68,8 +68,8 @@
                 <div class="r-items-foot">
                   <hr class="cutLine" />
                   <div class="items-info">
-                    <a class="rd-lk">赞&nbsp;&nbsp;</a><span><%= item.recordLiked %></span>
-                    <a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordComment %></span>
+                    <a class="rd-lk">赞&nbsp;&nbsp;</a><span><%= item.recordliked %></span>
+                    <a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordcomment %></span>
                   <% if(checknote){%>
                     <a id="delete" style="float:right;margin-right:10px;">删除</a>
                     <a id="edit" style="float:right;margin-right:10px;">编辑</a>
@@ -99,99 +99,8 @@
       </div>
     </div>
 	</div>
-<script>
-  
-  $("#btnReturn").click(function(){  //给return的图片一个点击事件
-    // location.href='/home';
-    history.back(-1);//回退到上一页
-  });
-
-  $('.rd-lk').on('click', function(event){
-    event.preventDefault();
-    var dom = $(this.nextSibling);
-    var likedcount = parseInt(dom.html());
-    var recordID = $(this).parent().parent().parent().attr('id');
-    var data = {"recordID":recordID};
-    $.ajax({
-      type: 'POST',
-      url: '/liked',
-      data: data,
-      success:function(data){
-        if(data.ret_code === 0 ){
-          alert('点赞成功！');
-          likedcount++;//自加1
-          dom.html(likedcount);
-        }else{
-          alert('点赞重复！');
-        }
-      }
-    });
-  });
-
-  $('.rd-cmt').on('click',function(event){
-    event.preventDefault();
-    if($(this).parent().next().css("display")=="none"){  
-        $(this).parent().next().show();  
-      }else{  
-        $(this).parent().next().hide();
-      };
-  });
-
-  $('.rd-btn').on('click',function(event){
-    event.preventDefault();
-    var dom = $(this).parent().parent().parent().prev().find('.rd-cmt').next();
-    var commentcount = parseInt(dom.html());
-    var comment = $(this).prev().val();
-    var recordID = $(this).parent().parent().parent().parent().parent().attr('id');//获得当前评论中 record的ID 
-    var userID = $(this).parent().parent().parent().parent().parent().parent().attr('id');
-    alert(userID);
-    var ul = $(this).parent().parent().prev().find('#ul-cmt');
-    var data = {
-      "comment":comment,
-      "recordID":recordID,
-      "userID":userID
-    };
-    $.ajax({
-      type: 'POST',
-      url: '/friending/addcomment',  //  借用了friending 的评论功能
-      data: data, 
-      success:function(data){
-        if(data.ret_code === 0 ){
-          alert('评论成功！');
-            var newLi = document.createElement('li');
-            var text = '<li class="list-group-item"><a href="/home/'+data.userID+'/notelist">'+data.nickname+'</a><span>&nbsp;:&nbsp;'+comment+'</span></li>';
-            newLi.innerHTML=text;
-            setTimeout(function(){
-              ul.append(newLi);
-              commentcount++;//自加1
-              dom.html(commentcount);
-            },1000);// 假装上传且实时更新 
-        }
-      }
-    });
-
-  });
-
-
-  $("#btn").click(function(event){
-    event.preventDefault();
-    var addRecord = $("#addRecord").val();
-    var data = { "recordContent" : addRecord };
-    alert(data);
-    $.ajax({
-      type: 'POST',
-      url: window.location.pathname+'/addrecord',
-      data: data,
-      success:function(data){
-        if(data.ret_code === 0 ){
-          alert('添加成功！');
-          location.reload();
-        }
-      }
-    });
-  });
-
-
-</script>
+<script src="/js/friendingcomment.js"></script>
+<script src="/js/liked.js"></script>
+<script src="/js/back.js"></script>
 </body>
 </html>

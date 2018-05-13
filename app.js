@@ -11,6 +11,7 @@ const router = express.Router();
 /* 
   路由接口列表
 */
+const aboutRouter = require('./routes/about');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const homepageRouter = require('./routes/home');
@@ -54,12 +55,8 @@ app.use(express.static('./uploads'));
 /*
   Router 
 */
-router.get('/', function (req, res) {
-  res.render('about');
-});
-router.get('/about', function (req, res) {
-  res.render('about');
-});
+app.use('/',aboutRouter);
+app.use('/about', aboutRouter);
 app.use('/login', loginRouter);
 app.use('/register',registerRouter);
 app.use('/home',homepageRouter);

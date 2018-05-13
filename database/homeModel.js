@@ -22,7 +22,19 @@ function homeModel(){
       callback(err, result);
     });
   };
-  
+  this.searchliked = function (arr, callback) {
+    var sql = 'select * from liked where recordID in (' + arr + ') ';
+    connection.query(sql, function (err, result) {
+      callback(err, result);
+    });
+  }
+  this.recordcomment = function (arr, callback) {
+    var sql = 'select user.userID,user.nickname,user.userPtoUrl,comment.* from comment,user where comment.user2ID=user.userID AND recordID in (' + arr + ')';
+    connection.query(sql, function (err, result) {
+      callback(err, result);
+    });
+    connection.end();
+  }
   this.progressPage=function(userID,callback){
     // 看sql 是不是能优化 我这个是瞎写的！！
     // so sad...
@@ -30,7 +42,7 @@ function homeModel(){
     connection.query(sql,function(err,result){
       callback(err,result);
     });
-    connection.end();
+    
   };
 
   this.homePage=function(userID,callback){

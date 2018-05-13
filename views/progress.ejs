@@ -13,50 +13,83 @@
 	<div class="main">
 		<%- include('common/home-header.ejs',{data:userpart}) -%>
     <div class="body">
-			<!--内容部分!-->
-				<% if(datapart.length == 0){ %>
-						<div class="blank-list"> there is no progress here </div>
-					<% }else{ %>	
-					<ul class="p-ul">
-						<% datapart.forEach(function(item){ %>
-							<li class="p-items">
-								<div class="p-items-header">
-									<div class="user-pto">
-										<img src=<%= userpart.userPtoUrl %> >
-									</div>
-									<div class="user-info">
-										<div class="info-time">
-											<span><%= item.recordtime %></span>
-										</div>
-										<div class="user-nick">
-											<% if(check) {%>
-												<a href="#">你</a>
-											<% }else{%>
-												<a href="/home/<%= userpart.userID%>/notelist"><%= userpart.nickname %></a>
-											<% }; %>
-											<span>更新了一个进展到&nbsp;</span><a href="/note/<%= item.noteID%>"><%= item.noteTitle %></a>
-										</div>
-									</div>
-								</div>
-								<div class="p-items-content">
-									<div class="user-content">
-										<p><%= item.recordContent %></p>
-									</div>
-								</div>
-								<div class="p-items-foot">
-									<hr class="cutLine" />
-									<div class="items-info">
-										赞<span>&nbsp;<%= item.recordLiked %> &nbsp;</span>
-										评论<span>&nbsp;<%= item.recordComment %> &nbsp;</span>
-									</div>
-								</div>
-							</li>
-						<%});%>
-					</ul>
-					<% } %>
+	 <!--内容部分!-->
+		<% if(datapart.length == 0){ %>
+		<div class="blank-list"> there is no progress here </div>
+		<% }else{ %>	
+		<ul class="p-ul">
+		<% datapart.forEach(function(item){ %>
+			<li class="p-items" id="<%= item.recordID%>" >
+				<div class="p-items-header">
+					<div class="user-pto">
+						<img src=<%= userpart.userPtoUrl %> >
+					</div>
+					<div class="user-info" id="<%= item.userID%>">
+						<div class="info-time">
+							<span><%= item.recordtime %></span>
+						</div>
+						<div class="user-nick">
+							<% if(check) {%>
+								<a href="#">你</a>
+							<% }else{%>
+								<a href="/home/<%= userpart.userID%>/notelist"><%= userpart.nickname %></a>
+							<% }; %>
+							<span>更新了一个进展到&nbsp;</span><a href="/note/<%= item.noteID%>"><%= item.noteTitle %></a>
+						</div>
+					</div>
+				</div>
+				<div class="p-items-content">
+					<div class="user-content">
+						<p><%= item.recordContent %></p>
+					</div>
+				</div>
+				<div class="r-items-foot">
+				<hr class="cutLine" />
+				<% if(check) {%>	
+				<div class="items-info"  >
+					赞&nbsp;&nbsp;</a><span><%= item.recordliked %></span>
+					<a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordcomment %></span>
+					<a class="rd-del" style="float:right;margin-right:10px;">删除</a>
+				</div>
+				<div class="commentbox" id="<%= item.recordID %>commentbox" >
+					<div class="panel panel-default">
+						<ul class="list-group" id="ul-cmt">
+							<% item.comment.forEach(function(item){ %>
+								<li class="list-group-item"><a href="/home/<%= item.userID%>/notelist"><%= item.nickname %></a><span>&nbsp;:&nbsp;<%= item.comment %></span></li>
+							<%}); %>
+						</ul>
+					</div>
+				</div>
+
+				<% }else{ %>
+				<div class="items-info"  >
+					<a class="rd-lk">赞&nbsp;&nbsp;</a><span><%= item.recordliked %></span>
+					<a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordcomment %></span>
+				</div>
+				<div class="commentbox" id="<%= item.recordID %>commentbox" >
+					<div class="panel panel-default">
+						<ul class="list-group" id="ul-cmt">
+							<% item.comment.forEach(function(item){ %>
+								<li class="list-group-item"><a href="/home/<%= item.userID%>/notelist"><%= item.nickname %></a><span>&nbsp;:&nbsp;<%= item.comment %></span></li>
+							<%}); %>
+						</ul>
+					</div>
+					<div>
+						<form class="form-inline">  
+							<input type="text" class="form-control rd-input" >
+							<button type="submit" class="btn btn-primary rd-btn">发布</button>
+						</form>
+					</div>
+				</div>
+				
+				<% }; %>
+			</li>
+		<%});%>
+	  </ul>
+		<% } %>
     </div>
 	</div>
-<script>
-</script>
+<script src="/js/friendingcomment.js"></script>
+<script src="/js/liked.js"></script>
 </body>
 </html>

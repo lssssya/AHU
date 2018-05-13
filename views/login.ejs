@@ -33,31 +33,6 @@
 				</div>
 			</div>
 		</div>
-		<script>
-		$(document).ready(function() {
-			$("#login").click(function(event){
-					event.preventDefault();
-					var username = $("#username").val();
-					var password = $("#password").val();
-					var data = {"username":username,"pw":password};
-					$.ajax({
-							type: 'POST',
-							url: '/login',
-							data: data,
-							success: function(data) {
-								if (data.ret_code === 0 ){
-									location.href='/home/'+data.userID+'/notelist' ;
-								};
-								if(data.ret_code === 1){
-									alert("帐号密码错误，请重新登陆！")
-									location.href='/login';
-								};
-							}
-					});
-					return false;
-			});
-		
-		});
-		</script>
+		<script src="/js/start.js"></script>
 </body>
 </html>

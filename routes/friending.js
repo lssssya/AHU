@@ -6,13 +6,25 @@ const isYourself = require('../middlewares/isyou').isYourself;
 const friendingModel = require('../database/friendingModel');
 const db = new friendingModel();
 
-
-function insertinto(arr1, arr2) { //把评论内容内嵌到每一个record中
+function insertliked(arr1, arr2) {
+  arr1.forEach(function (item1) {
+    item1['recordliked'] = 0
+    arr2.forEach(function (item2) {
+      if (parseInt(item1.recordID) == parseInt(item2.recordID)) {
+        item1.recordliked += 1;
+      }
+    })
+  })
+  return arr1;
+}
+function insertcomment(arr1, arr2) { //把评论内容内嵌到每一个record中
   arr1.forEach(function (item1) {
     item1['comment'] = [];
+    item1['recordcomment'] = 0;
     arr2.forEach(function (item2) {
       if (parseInt(item1.recordID) == parseInt(item2.recordID)) {
         item1.comment.push(item2);
+        item1.recordcomment += 1; 
       }
     })
   })
@@ -53,6 +65,7 @@ router.get('/:userID', checkLogin, isYourself,function(req,res){
         userPtoUrl: req.session.user.userPtoUrl
   };
   var temparr = new Array();
+  var likedArray = new Array();
   var recordArray = new Array();
   var commentArray = new Array();
   db.init();
@@ -67,14 +80,23 @@ router.get('/:userID', checkLogin, isYourself,function(req,res){
       db.recordcomment(temparr,function(err,result){
         if(err){
           console.log(err);
-        }else{         
+        }else{
           commentArray = result.concat();
-          recordArray = insertinto(recordArray, commentArray);
-          console.log(recordArray);
-          res.render('friending',{
-            sessionpart: sessionPart,
-            datapart:recordArray
-          });
+          db.searchliked(temparr,function(err,result){
+            if(err){
+              console.log(err);
+            }else{
+              likedArray = result.concat();
+              recordArray = insertliked(recordArray,likedArray);
+              recordArray = insertcomment(recordArray, commentArray);
+              console.log(recordArray);
+              res.render('friending',{
+                sessionpart: sessionPart,
+                datapart:recordArray
+              });
+            }
+          })       
+          
         }
       })
     }

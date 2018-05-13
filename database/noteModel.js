@@ -14,15 +14,28 @@ function noteModel(){
     connection.end();
   };
 
+  this.searchliked = function (noteID,callback) {
+    var sql = 'select * from liked,record where noteID = "'+noteID+'" and record.recordID = liked.recordID ';
+    connection.query(sql,function (err,result) {
+      callback(err,result);
+    });
+  }
+
+  this.searchfollow = function (noteID,callback) {
+    var sql ='select count(*) as notefollow from focuse_note where noteID = "'+noteID+'"';
+    connection.query(sql,function (err,result) {  
+      callback(err,result);
+    });
+  }
 
   this.searchNote = function(noteID,callback){
-    var sql = 'select * from note where noteID = "'+noteID + '"';
+    var sql = 'select * from note where noteID = "'+ noteID + '"';
     connection.query(sql,function (err,result) {
       callback(err,result);      
     });
   };
   this.searchRecord = function (noteID, callback) {
-    var sql = 'select * from record where noteID = "' + noteID + '" order by recordtime DESC ';//select
+    var sql = 'select * from record where noteID = "' + noteID + '" order by recordtime DESC ';
     connection.query(sql, function (err, result) {
       callback(err, result);
     });

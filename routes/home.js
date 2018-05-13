@@ -10,30 +10,31 @@ const db = new homeModel();
 router.get('/:userID/notelist', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-      dataPart = new Array();
-      sessionPart = {
-        userID: req.session.user.userID,
-        nickname: req.session.user.nickname,
-        userPtoUrl: req.session.user.userPtoUrl
+    dataPart = new Array();
+  sessionPart = {
+    userID: req.session.user.userID,
+    nickname: req.session.user.nickname,
+    userPtoUrl: req.session.user.userPtoUrl
   };
   db.init();
-  db.identity(ID,function (err,result) {
-    if(err){
+  db.identity(ID, function (err, result) {
+    if (err) {
       console.log(err);
       res.json({ "ret_code": 2 });
-    }else{
+    } else {
       userPart = Object.create(result[0]);
-      db.homePage(ID, function (err, result){
-        if(err){
+      db.homePage(ID, function (err, result) {
+        if (err) {
           console.log(err);
-          res.json({"ret_code":2});
-        }else{
+          res.json({ "ret_code": 2 });
+        } else {
           dataPart = result.concat();
           res.render('notelist', {
-            sessionpart : sessionPart, 
-            datapart : dataPart ,
-            userpart : userPart ,
-            check : req.isyourself });
+            sessionpart: sessionPart,
+            datapart: dataPart,
+            userpart: userPart,
+            check: req.isyourself
+          });
         };
       });
     };
@@ -41,21 +42,46 @@ router.get('/:userID/notelist', checkLogin, isYourself, function (req, res) {
 });
 
 /* part -- progress  */
+function insertliked(arr1, arr2) {
+  arr1.forEach(function (item1) {
+    item1['recordliked'] = 0
+    arr2.forEach(function (item2) {
+      if (parseInt(item1.recordID) == parseInt(item2.recordID)) {
+        item1.recordliked += 1;
+      }
+    })
+  })
+  return arr1;
+};
+function insertcomment(arr1, arr2) { //把评论内容内嵌到每一个record中
+  arr1.forEach(function (item1) {
+    item1['comment'] = [];
+    item1['recordcomment'] = 0;
+    arr2.forEach(function (item2) {
+      if (parseInt(item1.recordID) == parseInt(item2.recordID)) {
+        item1.comment.push(item2);
+        item1.recordcomment += 1;
+      }
+    })
+  })
+  return arr1;
+};
 router.get('/:userID/progress', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-      dataPart = new Array();
-      sessionPart = {
-        userID: req.session.user.userID,
-        nickname: req.session.user.nickname,
-        userPtoUrl: req.session.user.userPtoUrl
+    dataPart = new Array();
+  sessionPart = {
+    userID: req.session.user.userID,
+    nickname: req.session.user.nickname,
+    userPtoUrl: req.session.user.userPtoUrl
   };
+  var temparr = new Array();
   db.init();
-  db.identity(ID,function(err,result){
-    if(err){
+  db.identity(ID, function (err, result) {
+    if (err) {
       console.log(err);
       res.json({ "ret_code": 2 });
-    }else{
+    } else {
       userPart = Object.create(result[0]);
       db.progressPage(ID, function (err, result) {
         if (err) {
@@ -63,12 +89,31 @@ router.get('/:userID/progress', checkLogin, isYourself, function (req, res) {
           res.json({ "ret_code": 2 });
         } else {
           dataPart = result.concat();
-          res.render('progress', {
-            sessionpart: sessionPart,
-            datapart: dataPart,
-            userpart: userPart,
-            check: req.isyourself
+          temparr = dataPart.map(function (item) {
+            return parseInt(item.recordID);
           });
+          db.searchliked(temparr, function (err, result) {
+            if (err) {
+              console.log(err);
+              res.json({ "ret_code": 2 });
+            } else {
+              dataPart = insertliked(dataPart, result);
+              db.recordcomment(temparr, function (err, result) {
+                if (err) {
+                  console.log(err);
+                  res.json({ "ret_code": 2 });
+                } else {
+                  dataPart = insertcomment(dataPart, result);
+                  res.render('progress', {
+                    sessionpart: sessionPart,
+                    datapart: dataPart,
+                    userpart: userPart,
+                    check: req.isyourself
+                  });
+                }
+              })
+            }
+          })
         };
       });
     };
@@ -79,18 +124,18 @@ router.get('/:userID/progress', checkLogin, isYourself, function (req, res) {
 router.get('/:userID/follow', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-      dataPart = new Array();
-      sessionPart = {
-        userID: req.session.user.userID,
-        nickname: req.session.user.nickname,
-        userPtoUrl: req.session.user.userPtoUrl
+    dataPart = new Array();
+  sessionPart = {
+    userID: req.session.user.userID,
+    nickname: req.session.user.nickname,
+    userPtoUrl: req.session.user.userPtoUrl
   };
   db.init();
-  db.identity(ID,function(err,result){
+  db.identity(ID, function (err, result) {
     if (err) {
       console.log(err);
       res.json({ "ret_code": 2 });
-    }else{
+    } else {
       userPart = Object.create(result[0]);
       db.followUserPage(ID, function (err, result) {
         if (err) {
@@ -98,13 +143,13 @@ router.get('/:userID/follow', checkLogin, isYourself, function (req, res) {
           res.json({ "ret_code": 2 });
         } else {
           dataPart = result.concat();
-          res.render('follow-user', { 
+          res.render('follow-user', {
             sessionpart: sessionPart,
             datapart: dataPart,
             userpart: userPart,
             check: req.isyourself
           });
-        }; 
+        };
       });
     };
   });
@@ -113,11 +158,11 @@ router.get('/:userID/follow', checkLogin, isYourself, function (req, res) {
 router.get('/:userID/follow/user', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-      dataPart = new Array();
-      sessionPart = {
-        userID: req.session.user.userID,
-        nickname: req.session.user.nickname,
-        userPtoUrl: req.session.user.userPtoUrl
+    dataPart = new Array();
+  sessionPart = {
+    userID: req.session.user.userID,
+    nickname: req.session.user.nickname,
+    userPtoUrl: req.session.user.userPtoUrl
   };
   db.init();
   db.identity(ID, function (err, result) {
@@ -146,18 +191,18 @@ router.get('/:userID/follow/user', checkLogin, isYourself, function (req, res) {
 router.get('/:userID/follow/note', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-      dataPart = new Array();
-      sessionPart = {
-        userID: req.session.user.userID,
-        nickname: req.session.user.nickname,
-        userPtoUrl: req.session.user.userPtoUrl
+    dataPart = new Array();
+  sessionPart = {
+    userID: req.session.user.userID,
+    nickname: req.session.user.nickname,
+    userPtoUrl: req.session.user.userPtoUrl
   };
   db.init();
-  db.identity(ID,function(err,result){
-    if(err){
+  db.identity(ID, function (err, result) {
+    if (err) {
       console.log(err);
       res.json({ "ret_code": 2 });
-    }else{
+    } else {
       userPart = Object.create(result[0]);
       db.followNotePage(ID, function (err, result) {
         if (err) {
@@ -166,10 +211,10 @@ router.get('/:userID/follow/note', checkLogin, isYourself, function (req, res) {
         } else {
           datapart = result.concat();
           res.render('follow-note', {
-            sessionpart : sessionPart,
-            userpart : userPart,
-            datapart : dataPart,
-            check : req.isyourself
+            sessionpart: sessionPart,
+            userpart: userPart,
+            datapart: dataPart,
+            check: req.isyourself
           });
         };
       });
@@ -181,11 +226,11 @@ router.get('/:userID/follow/note', checkLogin, isYourself, function (req, res) {
 router.get('/:userID/follower', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-      dataPart = new Array();
-      sessionPart = {
-        userID: req.session.user.userID,
-        nickname: req.session.user.nickname,
-        userPtoUrl: req.session.user.userPtoUrl
+    dataPart = new Array();
+  sessionPart = {
+    userID: req.session.user.userID,
+    nickname: req.session.user.nickname,
+    userPtoUrl: req.session.user.userPtoUrl
   };
   db.init();
   db.identity(ID, function (err, result) {

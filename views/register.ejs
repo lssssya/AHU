@@ -36,33 +36,6 @@
 				</div>
 			</div>
 		</div>
-		<script>
-		$(document).ready(function() {
-			$("#register").click(function(event){
-					event.preventDefault();
-					var nickname = $("#nickname").val();
-					var username = $("#username").val();
-					var password = $("#password").val();
-					var data = {"username":username,"pw":password,"nickname":nickname};
-					$.ajax({
-							type: 'POST',
-							url: '/register',
-							data: data,
-							success: function(data) {
-								if (data.ret_code === 0 ){
-									alert("注册成功！");
-									location.href='/login';
-								};
-								if(data.ret_code === 1 ){
-									alert("注册重复！")
-									location.href='/register';
-								};
-							}
-					});
-					return false;
-			});
-		
-		});
-		</script>
+		<script src="/js/start.js"></script>
 </body>
 </html>

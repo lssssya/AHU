@@ -46,31 +46,6 @@
 			</div>
 	  </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $("#confirSet").click(function(event){
-            event.preventDefault();
-            var nickname = $("#nickname").val();
-            var gender = $("#sex").val();
-						var signUp = $("#signUp").val();
-            var data = {"gender":gender,"nickname":nickname,"signUp":signUp};
-            $.ajax({
-                type: 'POST',
-                url: window.location.pathname,
-                data: data,
-                success: function(data) {
-                    if (data.ret_code === 0 ){
-                        alert("修改成功！");
-                    };
-                    if(data.ret_code === 1 ){
-                        alert("修改失败！");
-                    };
-                }
-            });
-            return false;
-        });
-
-    });
-</script>
+<script src="/js/setting.js"></script>
 </body>
 </html>
