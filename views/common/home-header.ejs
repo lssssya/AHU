@@ -5,7 +5,7 @@
 	<p><%= data.nickname %></p>
 </div>
 <div class="header">				
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs" id="header-bar">
     <li role="presentation"><a href="/home/<%= data.userID %>/notelist">记本</a></li>
     <li role="presentation"><a href="/home/<%= data.userID %>/progress">进展</a></li>
     <li role="presentation"><a href="/home/<%= data.userID %>/follow">关注</a></li>
@@ -13,8 +13,12 @@
     <% if (check){ %>
     <li role="presentation" class="pull-right"><a href="/newnote"><span class="glyphicon glyphicon-plus">&nbsp;</span>新增记本</a></li>
     <% }else{%>
-    <li role="presentation" class="pull-right"><a href="/followclick/<%= data.userID %>"><span class="glyphicon glyphicon-plus">&nbsp;</span>关注</a></li>
+      <% if(checkrelationship){ %>
+      <li role="presentation" class="pull-right"><a class="unfollowclick" id="<%= data.userID %>"><span class="glyphicon glyphicon-ok">&nbsp;</span>已关注</a></li>
+      <% }else{%>
+      <li role="presentation" class="pull-right"><a class="followclick" id="<%= data.userID %>"><span class="glyphicon glyphicon-plus">&nbsp;</span>关注</a></li>
+      <% };%>
     <% };%>
   </ul>
 </div>
-
+<script src="/js/followuserclick.js"></script>

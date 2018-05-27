@@ -11,7 +11,7 @@
 	<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
-		<%- include('common/home-header.ejs',{data:userpart}) -%>
+		<%- include('common/home-header.ejs',{data:userpart,check:check,checkrelationship:checkrelationship }) -%>
     <div class="body">
 	 <!--内容部分!-->
 		<% if(datapart.length == 0){ %>
@@ -60,7 +60,6 @@
 						</ul>
 					</div>
 				</div>
-
 				<% }else{ %>
 				<div class="items-info"  >
 					<a class="rd-lk">赞&nbsp;&nbsp;</a><span><%= item.recordliked %></span>
@@ -81,7 +80,6 @@
 						</form>
 					</div>
 				</div>
-				
 				<% }; %>
 			</li>
 		<%});%>

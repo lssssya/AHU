@@ -66,6 +66,14 @@ function noteModel(){
   //   connection.end();
   // };
 
+  this.deletenote =function (noteID,callback) {
+    var sql = 'delete from note where noteID = "'+noteID+'"';
+    connection.query(sql,function(err,result){
+      callback(err,result);
+    });
+    connection.end();
+  }
+
   this.addRecord = function (noteID, recordContent,userID, callback) {
     var addRecordSql = 'insert into record(noteID,recordContent,userID) value(?,?,?)'
     var addRecordSql_parmas = [noteID,recordContent,userID];

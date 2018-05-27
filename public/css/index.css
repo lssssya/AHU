@@ -346,3 +346,24 @@ li{
 	color: #BCBCBC;
 	font-weight: normal;
 }
+
+.searchbox{
+	padding-top:20px;
+	margin-bottom: 20px;
+}
+.random,.result{
+	margin-top:20px;
+}
+.information .panel-body {
+	padding-top:6px;
+	padding-bottom: 6px;
+	font-size: 22px;
+	color:#E4E4E4;
+}
+.information .panel{
+	background-color: #515151;
+	border-left-color:#515151;
+	border-right-color:#515151;
+	border-top-color:#515151;
+	border-bottom-color:#515151;
+}

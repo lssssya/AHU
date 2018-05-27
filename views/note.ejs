@@ -18,10 +18,13 @@
       <div class="note-title">
         <%= notepart.noteTitle %>
       </div>
-      <div class="note-detail">
+      <div class="note-detail" id="<%= notepart.noteID%>">
         <div class="note-detail-header">
           <img src=<%= notepart.noteCoverUrl %>>
         <div class="note-title"><%= notepart.noteTitle %></div>
+        <% if(checknote){%>
+        <button class="btn btn-danger" id="deletenote"style="margin-bottom:10px;">删除记本</button>
+        <%};%>
         </div>
         <hr class="cutLine" />
         <div class="note-detail-content">
@@ -49,12 +52,18 @@
             </form>
           </div>
         <% }else{ %>
-          <button class="btn btn-primary btn-lg" id="followclick"><span class="glyphicon glyphicon-plus">&nbsp;</span>关注记本</button>
+        <div id="box">
+          <% if(checkfollow){%>
+            <button class="btn btn-primary btn-lg unfollowclick"><span class="glyphicon glyphicon-ok">&nbsp;</span>已关注</button>
+          <% }else{%>
+            <button class="btn btn-primary btn-lg followclick"><span class="glyphicon glyphicon-plus">&nbsp;</span>关注记本</button>
+          <% };%>
+        </div>  
           <div class="note-body">
         <% };%>
         <div class="note-content">
           <% if(recordpart.length == 0){ %>
-						<div class="blank-list"> there is no record here </div>
+						<div class="blank-list" style="margin-top:15px;"> there is no record here </div>
 					<% }else{ %>	
           <ul class="p-ul" id="<%= notepart.userID %>">
             <% recordpart.forEach(function(item){ %>
@@ -72,7 +81,6 @@
                     <a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordcomment %></span>
                   <% if(checknote){%>
                     <a id="delete" style="float:right;margin-right:10px;">删除</a>
-                    <a id="edit" style="float:right;margin-right:10px;">编辑</a>
                   <% }; %>
                   </div>
                   <div class="commentbox" id="<%= item.recordID %>commentbox" >
@@ -98,7 +106,10 @@
         </div>
       </div>
     </div>
-	</div>
+  </div>
+<script src="/js/noteoptions.js"></script>
+<script src="/js/follownoteclick.js"></script>
+<script src="/js/delete.js"></script>
 <script src="/js/friendingcomment.js"></script>
 <script src="/js/liked.js"></script>
 <script src="/js/back.js"></script>

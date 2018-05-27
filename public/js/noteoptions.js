@@ -47,7 +47,6 @@ $("#btn").click(function (event) {
   event.preventDefault();
   var addRecord = $("#addRecord").val();
   var data = { "recordContent": addRecord };
-  alert(data);
   $.ajax({
     type: 'POST',
     url: window.location.pathname + '/addrecord',
@@ -61,3 +60,16 @@ $("#btn").click(function (event) {
   });
 });
 
+$("#deletenote").on('click', function (event) {
+  event.preventDefault();
+  $.ajax({
+    type:'POST',
+    url: window.location.pathname + '/delete',
+    success:function(data){
+      if(data.ret_code==0){
+        alert("删除记本成功！");
+        self.location = document.referrer;//返回前一页并且刷新
+      }
+    }
+  })
+})

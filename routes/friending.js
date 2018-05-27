@@ -24,7 +24,7 @@ function insertcomment(arr1, arr2) { //把评论内容内嵌到每一个record�
     arr2.forEach(function (item2) {
       if (parseInt(item1.recordID) == parseInt(item2.recordID)) {
         item1.comment.push(item2);
-        item1.recordcomment += 1; 
+        item1.recordcomment += 1;
       }
     })
   })
@@ -52,56 +52,63 @@ router.post('/addcomment', checkLogin, function (req, res) {
         });
       }
     });
-  });
+});
 
 
-router.get('/:userID', checkLogin, isYourself,function(req,res){
+router.get('/:userID', checkLogin, isYourself, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-      dataPart = new Array();
-      sessionPart = {
-        userID: req.session.user.userID,
-        nickname: req.session.user.nickname,
-        userPtoUrl: req.session.user.userPtoUrl
-  };
+    dataPart = new Array(),
+    sessionPart = {
+      userID: req.session.user.userID,
+      nickname: req.session.user.nickname,
+      userPtoUrl: req.session.user.userPtoUrl
+    };
   var temparr = new Array();
   var likedArray = new Array();
   var recordArray = new Array();
   var commentArray = new Array();
   db.init();
-  db.recordlist(ID,function (err,result) {
-    if(err){
+  db.recordlist(ID, function (err, result) {
+    if (err) {
       console.log(err);
-    }else{
+    } else {
       recordArray = result.concat();
-      temparr = result.map(function(item){
+      temparr = result.map(function (item) {
         return parseInt(item.recordID);
       });
-      db.recordcomment(temparr,function(err,result){
-        if(err){
-          console.log(err);
-        }else{
-          commentArray = result.concat();
-          db.searchliked(temparr,function(err,result){
-            if(err){
-              console.log(err);
-            }else{
-              likedArray = result.concat();
-              recordArray = insertliked(recordArray,likedArray);
-              recordArray = insertcomment(recordArray, commentArray);
-              console.log(recordArray);
-              res.render('friending',{
-                sessionpart: sessionPart,
-                datapart:recordArray
-              });
-            }
-          })       
-          
-        }
-      })
+      if (temparr.length == 0) {
+        res.render('friending', {
+          sessionpart: sessionPart,
+          datapart: recordArray
+        });
+      } else {
+        db.recordcomment(temparr, function (err, result) {
+          if (err) {
+            console.log(err);
+          } else {
+            commentArray = result.concat();
+            db.searchliked(temparr, function (err, result) {
+              if (err) {
+                console.log(err);
+              } else {
+                likedArray = result.concat();
+                recordArray = insertliked(recordArray, likedArray);
+                recordArray = insertcomment(recordArray, commentArray);
+                console.log(recordArray);
+                res.render('friending', {
+                  sessionpart: sessionPart,
+                  datapart: recordArray
+                });
+              }
+            })
+
+          }
+        })
+      }
     }
   })
-  
+
 });
 module.exports = router;
 

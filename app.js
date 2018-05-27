@@ -21,21 +21,21 @@ const newnoteRouter = require('./routes/newnote');
 const settingRouter = require('./routes/setting');
 const changepwRouter = require('./routes/changepw');
 const likedRouter = require('./routes/liked');
-const followRouter = require('./routes/follow');
-
+const relationshipRouter = require('./routes/relationship');
+const discoveryRouter = require('./routes/discovery');
 
 /* 
   基本设置
 */
 const app = express();
-app.set('view engine','ejs');
+app.set('view engine', 'ejs');
 //设置上传的文件目录
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-  secret:'123456',
-  cookie: { maxAge: 60 * 1000 * 60},// 单位毫秒 所以是一个小时
+  secret: '123456',
+  cookie: { maxAge: 60 * 1000 * 60 },// 单位毫秒 所以是一个小时
   // store: new FileStore(), // 本地存储session（文本文件，也可以选择其他store，比如redis的）
   saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
   resave: true // 是否每次都重新保存会话，建议false
@@ -55,18 +55,19 @@ app.use(express.static('./uploads'));
 /*
   Router 
 */
-app.use('/',aboutRouter);
+app.use('/', aboutRouter);
 app.use('/about', aboutRouter);
 app.use('/login', loginRouter);
-app.use('/register',registerRouter);
-app.use('/home',homepageRouter);
-app.use('/newnote',newnoteRouter);
-app.use('/note',noteRouter);
-app.use('/friending',friendingRouter);
+app.use('/register', registerRouter);
+app.use('/home', homepageRouter);
+app.use('/newnote', newnoteRouter);
+app.use('/note', noteRouter);
+app.use('/friending', friendingRouter);
 app.use('/setting', settingRouter);
 app.use('/changepw', changepwRouter);
-app.use('/liked',likedRouter);
-app.use('/follow',followRouter);
+app.use('/liked', likedRouter);
+app.use('/relationship', relationshipRouter);
+app.use('/discovery',discoveryRouter)
 
 
 

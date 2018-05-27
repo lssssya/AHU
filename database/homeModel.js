@@ -83,6 +83,14 @@ function homeModel(){
     connection.end();
   };
 
+  this.searchfollow = function (userID,callback) {
+    var sql = 'select userID from user where userID in (select user1ID from focuse_user where user2ID = "' + userID +'")'
+    connection.query(sql,function(err,result){
+      callback(err,result);
+    });
+    connection.end();
+  }
+
 
 };
 module.exports = homeModel;

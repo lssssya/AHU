@@ -3,19 +3,20 @@ const router = express.Router();
 
 const checkLogin = require('../middlewares/checklogin').checkLogin;
 const isYourself = require('../middlewares/isyou').isYourself;
+const isYourfriend = require('../middlewares/isyou').isYourfriend;
 const homeModel = require('../database/homeModel');
 const db = new homeModel();
 
 /* part -- notelist */
-router.get('/:userID/notelist', checkLogin, isYourself, function (req, res) {
+router.get('/:userID/notelist', checkLogin, isYourself, isYourfriend, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-    dataPart = new Array();
-  sessionPart = {
-    userID: req.session.user.userID,
-    nickname: req.session.user.nickname,
-    userPtoUrl: req.session.user.userPtoUrl
-  };
+    dataPart = new Array(),
+    sessionPart = {
+      userID: req.session.user.userID,
+      nickname: req.session.user.nickname,
+      userPtoUrl: req.session.user.userPtoUrl
+    };
   db.init();
   db.identity(ID, function (err, result) {
     if (err) {
@@ -33,7 +34,8 @@ router.get('/:userID/notelist', checkLogin, isYourself, function (req, res) {
             sessionpart: sessionPart,
             datapart: dataPart,
             userpart: userPart,
-            check: req.isyourself
+            check: req.isyourself,
+            checkrelationship: req.isyourfriend
           });
         };
       });
@@ -66,15 +68,15 @@ function insertcomment(arr1, arr2) { //把评论内容内嵌到每一个record�
   })
   return arr1;
 };
-router.get('/:userID/progress', checkLogin, isYourself, function (req, res) {
+router.get('/:userID/progress', checkLogin, isYourself, isYourfriend, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-    dataPart = new Array();
-  sessionPart = {
-    userID: req.session.user.userID,
-    nickname: req.session.user.nickname,
-    userPtoUrl: req.session.user.userPtoUrl
-  };
+    dataPart = new Array(),
+    sessionPart = {
+      userID: req.session.user.userID,
+      nickname: req.session.user.nickname,
+      userPtoUrl: req.session.user.userPtoUrl
+    };
   var temparr = new Array();
   db.init();
   db.identity(ID, function (err, result) {
@@ -92,28 +94,41 @@ router.get('/:userID/progress', checkLogin, isYourself, function (req, res) {
           temparr = dataPart.map(function (item) {
             return parseInt(item.recordID);
           });
-          db.searchliked(temparr, function (err, result) {
-            if (err) {
-              console.log(err);
-              res.json({ "ret_code": 2 });
-            } else {
-              dataPart = insertliked(dataPart, result);
-              db.recordcomment(temparr, function (err, result) {
-                if (err) {
-                  console.log(err);
-                  res.json({ "ret_code": 2 });
-                } else {
-                  dataPart = insertcomment(dataPart, result);
-                  res.render('progress', {
-                    sessionpart: sessionPart,
-                    datapart: dataPart,
-                    userpart: userPart,
-                    check: req.isyourself
-                  });
-                }
-              })
-            }
-          })
+          if (temparr.length == 0) {
+            dataPart = insertliked(dataPart, temparr);
+            dataPart = insertcomment(dataPart, temparr);
+            res.render('progress', {
+              sessionpart: sessionPart,
+              datapart: dataPart,
+              userpart: userPart,
+              check: req.isyourself,
+              checkrelationship: req.isyourfriend
+            });
+          } else {
+            db.searchliked(temparr, function (err, result) {
+              if (err) {
+                console.log(err);
+                res.json({ "ret_code": 2 });
+              } else {
+                dataPart = insertliked(dataPart, result);
+                db.recordcomment(temparr, function (err, result) {
+                  if (err) {
+                    console.log(err);
+                    res.json({ "ret_code": 2 });
+                  } else {
+                    dataPart = insertcomment(dataPart, result);
+                    res.render('progress', {
+                      sessionpart: sessionPart,
+                      datapart: dataPart,
+                      userpart: userPart,
+                      check: req.isyourself,
+                      checkrelationship: req.isyourfriend
+                    });
+                  }
+                })
+              }
+            })
+          }
         };
       });
     };
@@ -121,15 +136,15 @@ router.get('/:userID/progress', checkLogin, isYourself, function (req, res) {
 });
 
 /* part -- follow */
-router.get('/:userID/follow', checkLogin, isYourself, function (req, res) {
+router.get('/:userID/follow', checkLogin, isYourself, isYourfriend, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-    dataPart = new Array();
-  sessionPart = {
-    userID: req.session.user.userID,
-    nickname: req.session.user.nickname,
-    userPtoUrl: req.session.user.userPtoUrl
-  };
+    dataPart = new Array(),
+    sessionPart = {
+      userID: req.session.user.userID,
+      nickname: req.session.user.nickname,
+      userPtoUrl: req.session.user.userPtoUrl
+    };
   db.init();
   db.identity(ID, function (err, result) {
     if (err) {
@@ -147,7 +162,8 @@ router.get('/:userID/follow', checkLogin, isYourself, function (req, res) {
             sessionpart: sessionPart,
             datapart: dataPart,
             userpart: userPart,
-            check: req.isyourself
+            check: req.isyourself,
+            checkrelationship: req.isyourfriend
           });
         };
       });
@@ -155,15 +171,15 @@ router.get('/:userID/follow', checkLogin, isYourself, function (req, res) {
   });
 });
 /* 想个办法把这两个合并了   大概也就是正则表达式的问题吧 */
-router.get('/:userID/follow/user', checkLogin, isYourself, function (req, res) {
+router.get('/:userID/follow/user', checkLogin, isYourself, isYourfriend, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-    dataPart = new Array();
-  sessionPart = {
-    userID: req.session.user.userID,
-    nickname: req.session.user.nickname,
-    userPtoUrl: req.session.user.userPtoUrl
-  };
+    dataPart = new Array(),
+    sessionPart = {
+      userID: req.session.user.userID,
+      nickname: req.session.user.nickname,
+      userPtoUrl: req.session.user.userPtoUrl
+    };
   db.init();
   db.identity(ID, function (err, result) {
     if (err) {
@@ -181,22 +197,23 @@ router.get('/:userID/follow/user', checkLogin, isYourself, function (req, res) {
             sessionpart: sessionPart,
             datapart: dataPart,
             userpart: userPart,
-            check: req.isyourself
+            check: req.isyourself,
+            checkrelationship: req.isyourfriend
           });
         };
       });
     };
   });
 });
-router.get('/:userID/follow/note', checkLogin, isYourself, function (req, res) {
+router.get('/:userID/follow/note', checkLogin, isYourself, isYourfriend, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-    dataPart = new Array();
-  sessionPart = {
-    userID: req.session.user.userID,
-    nickname: req.session.user.nickname,
-    userPtoUrl: req.session.user.userPtoUrl
-  };
+    dataPart = new Array(),
+    sessionPart = {
+      userID: req.session.user.userID,
+      nickname: req.session.user.nickname,
+      userPtoUrl: req.session.user.userPtoUrl
+    };
   db.init();
   db.identity(ID, function (err, result) {
     if (err) {
@@ -209,12 +226,13 @@ router.get('/:userID/follow/note', checkLogin, isYourself, function (req, res) {
           console.log(err);
           res.json({ "ret_code": 2 });
         } else {
-          datapart = result.concat();
+          dataPart = result.concat();
           res.render('follow-note', {
             sessionpart: sessionPart,
             userpart: userPart,
             datapart: dataPart,
-            check: req.isyourself
+            check: req.isyourself,
+            checkrelationship: req.isyourfriend
           });
         };
       });
@@ -223,15 +241,15 @@ router.get('/:userID/follow/note', checkLogin, isYourself, function (req, res) {
 });
 
 /* part -- follower */
-router.get('/:userID/follower', checkLogin, isYourself, function (req, res) {
+router.get('/:userID/follower', checkLogin, isYourself, isYourfriend, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
-    dataPart = new Array();
-  sessionPart = {
-    userID: req.session.user.userID,
-    nickname: req.session.user.nickname,
-    userPtoUrl: req.session.user.userPtoUrl
-  };
+    dataPart = new Array(),
+    sessionPart = {
+      userID: req.session.user.userID,
+      nickname: req.session.user.nickname,
+      userPtoUrl: req.session.user.userPtoUrl
+    };
   db.init();
   db.identity(ID, function (err, result) {
     if (err) {
@@ -249,7 +267,8 @@ router.get('/:userID/follower', checkLogin, isYourself, function (req, res) {
             sessionpart: sessionPart,
             userpart: userPart,
             datapart: dataPart,
-            check: req.isyourself
+            check: req.isyourself,
+            checkrelationship: req.isyourfriend
           });
         }
       });

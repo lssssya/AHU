@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>不忘_登陆_测试</title>
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
+	<script src="/lib/jquery/jquery.js"></script>
+</head>
+<body>
+	<%- include('common/home-aside.ejs',{data: sessionpart }) -%>
+	<!--右边下部分，网站的主体页面-->
+	<div class="main">
+		<div class="page-title">动态</div>
+		<hr class="cutLine" />
+		<div class="body">
+			<div class="searchbox">
+				<form class="form-inline">
+					<div class="form-group has-success has-feedback">
+						<div class="input-group">
+							<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+							<input type="text" class="form-control" id="searchinput" aria-describedby="inputGroupSuccess1Status">
+						</div>
+						<button type="submit" class="btn btn-default" id="searchbtn">搜索</button>
+					</div>
+				</form>
+			</div>
+			<div class="random" id="random">
+				<div class="information">
+					<div class="panel panel-default">
+						<div class="panel-body text-center">编辑推荐</div>
+					</div>
+				</div>
+				<div class="notelist">
+        <% if(ranklist.length == 0){ %>
+						<div class="blank-list"> 暂无推荐哦 </div>
+					<% }else{ %>
+          <ul class="note-list">
+            <% ranklist.forEach(function(item){ %>
+              <li class="notelist-item">
+                <a href="/note/<%= item.noteID%>" class="notelist-pic"><img src=<%= item.noteCoverUrl %> ></a>
+                <div class="notelist-title">
+                  <p><%= item.noteTitle %><p>
+                </div>
+              </li>
+            <%}); %>
+          </ul>
+        <% } %>
+      </div>
+			</div>
+
+		</div>
+  </div>
+</body>
+<script src="/js/searchbox.js"></script>
+</html>

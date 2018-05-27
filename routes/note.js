@@ -4,6 +4,7 @@ const router = express.Router();
 
 const checkLogin = require('../middlewares/checklogin').checkLogin;
 const isYourNote = require('../middlewares/isyou').isYourNote;
+const isYourFollowNote = require('../middlewares/isyou').isYourFollowNote;
 
 const noteModel = require('../database/noteModel');
 const db = new noteModel();
@@ -33,7 +34,7 @@ function insertcomment(arr1, arr2) { //把评论内容内嵌到每一个record�
   return arr1;
 };
 
-router.get('/:noteID', checkLogin, isYourNote, function (req, res) {
+router.get('/:noteID', checkLogin, isYourNote, isYourFollowNote, function (req, res) {
   var noteID = parseInt(req.params.noteID);
   db.init();
   var likedArray = new Array();
@@ -81,6 +82,7 @@ router.get('/:noteID', checkLogin, isYourNote, function (req, res) {
                   db.end();
                   res.render('note', {
                     checknote: req.isyournote,
+                    checkfollow: req.isyourfollownote,
                     notepart: notePart,
                     recordpart: recordPart
                   });
@@ -108,7 +110,18 @@ router.post('/:noteID/addrecord', checkLogin, isYourNote, function (req, res) {
         res.json({ "ret_code": 0 });
       }
     });
+});
 
+router.post('/:noteID/delete',checkLogin,isYourNote,function(req,res){
+  db.init();
+  db.deletenote(req.params.noteID,function(err,result){
+    if(err){
+      console.log(err);
+      res.json({"ret_code":2})
+    }else{
+      res.json({"ret_code":0})
+    }
+  });
 });
 
 

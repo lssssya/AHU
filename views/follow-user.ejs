@@ -11,7 +11,7 @@
 	<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
 	<!--右边下部分，网站的主体页面-->
 	<div class="main">
-    <%- include('common/home-header.ejs',{data:userpart,check:check}) -%>
+    <%- include('common/home-header.ejs',{data:userpart,check:check,checkrelationship:checkrelationship }) -%>
     <div class="body">
       <!--内容部分!-->
       <div class="follow-main">
@@ -34,7 +34,7 @@
 								</div>
 								<div class="user-info">
 									<div class="user-nick">
-										<a href="/home/<%= item.userID %>/notelist"><%= item.nickname%></a><button type="button" class="btn btn-primary btn-lg">已关注</button>
+										<a href="/home/<%= item.userID %>/notelist" id="<%= item.userID  %>"><%= item.nickname%></a>
 									</div>
 								</div>	
 							</div>
@@ -46,7 +46,7 @@
 			</div>
 	  </div>
 	</div>
-<script>
+<script>　
 </script>
 </body>
 </html>
