@@ -9,43 +9,38 @@
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
     <script src="/lib/jquery/jquery.js"></script>
 </head>
+
 <body>
-<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
-<!--右边下部分，网站的主体页面-->
-<script>
-    var snickname="";   //昵称
-    var ssex="";        //性别
-    var ssignUp="";     //个性签名
-    var userID="";      //用户ID
-</script>
-<div class="main">
-    <%- include('common/setting-head.ejs',{data:sessionpart}) -%>
-    <div class="body">
-      <div class="loginform">
-        <form>
-					<div class="form-group">
-	          <label for="nickname" class="sr-only"></label>
-              <input type="text" class="form-control" id="nickname" placeholder="昵称" value="">
-          </div>
-          <div class="settingSex" align="center">
-            <label class="settinglabel">
-            <input class="settingradio" type="radio" id="sex" name="sex" value="男">
-            <span class="settingradioInput"></span>男
-            </label>
-            <label class="settinglabel">
-						<input class="settingradio" type="radio" id="sex" name="sex" value="女">
-						<span class="settingradioInput"></span>女
-				    </label>
-          </div>
-          <div class="input-group-lg">
-						<label for="signUp" class="sr-only"></label>
-						<textarea id="signUp" placeholder="签名" class="settingArea"></textarea>
-					</div>
-						<button type="submit" class="btn btn-default " id="confirSet">提交</button>
-				</form>
-			</div>
-	  </div>
-</div>
-<script src="/js/setting.js"></script>
+    <%- include('common/home-aside.ejs',{data:sessionpart}) -%>
+        <!--右边下部分，网站的主体页面-->
+        <div class="main">
+            <%- include('common/setting-head.ejs',{data:sessionpart}) -%>
+                <div class="body">
+                    <div class="loginform">
+                        <form>
+                            <div class="form-group">
+                                <label for="nickname" class="sr-only"></label>
+                                <input type="text" class="form-control" id="nickname" placeholder="昵称" value="<%=sessionpart.nickname%>">
+                            </div>
+                            <div class="settingSex">
+                                <label class="settinglabel">
+                                    <input class="settingradio" type="radio" id="sex" name="sex" value="男">
+                                    <span class="settingradioInput"></span>男
+                                </label>
+                                <label class="settinglabel">
+                                    <input class="settingradio" type="radio" id="sex" name="sex" value="女">
+                                    <span class="settingradioInput"></span>女
+                                </label>
+                            </div>
+                            <div class="input-group-lg">
+                                <label for="signUp" class="sr-only"></label> 
+                                <textarea id="signUp" placeholder="签名" class="settingArea" value="<%=sessionpart.nickname%>"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-default " id="confirSet">提交</button>
+                        </form>
+                    </div>
+                </div>
+        </div>
+        <script src="/js/setting.js"></script>
 </body>
 </html>

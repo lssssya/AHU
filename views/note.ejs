@@ -23,7 +23,7 @@
           <img src=<%= notepart.noteCoverUrl %>>
         <div class="note-title"><%= notepart.noteTitle %></div>
         <% if(checknote){%>
-        <button class="btn btn-danger" id="deletenote"style="margin-bottom:10px;">删除记本</button>
+        <button class="btn btn-danger" id="deletenote" style="margin-bottom:10px;">删除记本</button>
         <%};%>
         </div>
         <hr class="cutLine" />
@@ -80,7 +80,7 @@
                     <a class="rd-lk">赞&nbsp;&nbsp;</a><span><%= item.recordliked %></span>
                     <a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordcomment %></span>
                   <% if(checknote){%>
-                    <a id="delete" style="float:right;margin-right:10px;">删除</a>
+                    <a class="rd-del" style="float:right;margin-right:10px;">删除</a>
                   <% }; %>
                   </div>
                   <div class="commentbox" id="<%= item.recordID %>commentbox" >
@@ -107,11 +107,11 @@
       </div>
     </div>
   </div>
+</body>
 <script src="/js/noteoptions.js"></script>
 <script src="/js/follownoteclick.js"></script>
-<script src="/js/delete.js"></script>
+<script src="/js/noteoptions.js"></script>
 <script src="/js/friendingcomment.js"></script>
 <script src="/js/liked.js"></script>
 <script src="/js/back.js"></script>
-</body>
 </html>

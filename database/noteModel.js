@@ -6,7 +6,7 @@ function noteModel(){
       host: 'localhost',
       user: 'root',
       password: 'xiaozhu32',
-      database: 'xjmtest1'
+      database: 'bw'
     });
     connection.connect();
   };
@@ -58,13 +58,13 @@ function noteModel(){
     connection.end();
   };
 
-  // this.deleteRecord = function(recordID,callback){
-  //   var sql = 'delete from record where recordID = "'+recordID+'"';
-  //   connection.query(sql,function(err,result){
-  //     callback(err,result);
-  //   });
-  //   connection.end();
-  // };
+  this.deleteRecord = function(recordID,callback){
+    var sql = 'delete from record where recordID = "'+recordID+'"';
+    connection.query(sql,function(err,result){
+      callback(err,result);
+    });
+    connection.end();
+  };
 
   this.deletenote =function (noteID,callback) {
     var sql = 'delete from note where noteID = "'+noteID+'"';

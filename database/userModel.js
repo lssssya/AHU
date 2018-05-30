@@ -8,7 +8,7 @@ function userModel() {
       user: 'root',
       password: 'xiaozhu32',
       port: '3306',
-      database: 'xjmtest1'
+      database: 'bw'
     });
     connection.connect();
   };

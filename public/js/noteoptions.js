@@ -39,8 +39,13 @@ $('.rd-btn').on('click', function (event) {
       }
     }
   });
-
 });
+$('.rd-del').on('click',function(event){
+  event.stopPropagation();
+  event.preventDefault();
+  console.log($(this));
+
+})
 
 
 $("#btn").click(function (event) {
@@ -60,7 +65,7 @@ $("#btn").click(function (event) {
   });
 });
 
-$("#deletenote").on('click', function (event) {
+$("#deletenote").click(function (event) {
   event.preventDefault();
   $.ajax({
     type:'POST',

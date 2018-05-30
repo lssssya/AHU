@@ -6,7 +6,7 @@ function homeModel(){
       host:'localhost',
       user:'root',
       password:'xiaozhu32',
-      database:'xjmtest1'
+      database:'bw'
     });
     connection.connect();
   };

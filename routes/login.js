@@ -17,6 +17,7 @@ router.post('/', urlencodedParser, function (req, res, next) {
 	db.init();
 	db.select(username,pw,function(err,result){
 		if(err){
+			console.log(err);
 			res.json({ "ret_code": 2, "ret_msg": "登陆失败"});
 		}
 		else if (result[0].password === pw){
