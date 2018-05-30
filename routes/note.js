@@ -96,6 +96,20 @@ router.get('/:noteID', checkLogin, isYourNote, isYourFollowNote, function (req, 
   });
 });
 
+router.post('/:noteID/deleterecord', checkLogin, isYourNote, function (req, res) {
+  db.init();
+  db.deleteRecord(
+    req.body.recordID,
+    function (err, result) {
+      if (err) {
+        console.log(err);
+        res.json({ "ret_code": 2 });
+      } else {
+        res.json({ "ret_code": 0 });
+      }
+    });
+});
+
 router.post('/:noteID/addrecord', checkLogin, isYourNote, function (req, res) {
   db.init();
   db.addRecord(

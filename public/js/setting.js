@@ -2,13 +2,20 @@
   $("#confirSet").click(function (event) {
     event.preventDefault();
     var nickname = $("#nickname").val();
-    var gender = $("#sex").val();
+    var gender = $('input:radio[name="sex"]:checked').val();
     var signUp = $("#signUp").val();
-    var data = { "gender": gender, "nickname": nickname, "signUp": signUp };
+    var formData = new FormData();
+    formData.append('nickname',nickname);
+    formData.append('sex',gender);
+    formData.append('qianming',signUp);
+    formData.append('userPtoUrl',$("#userPtoUrl")[0].files[0]);
     $.ajax({
       type: 'POST',
       url: window.location.pathname,
-      data: data,
+      async: false,
+      data: formData,
+      processData: false,
+      contentType: false,
       success: function (data) {
         if (data.ret_code === 0) {
           alert("修改成功！");

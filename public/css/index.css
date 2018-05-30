@@ -70,14 +70,16 @@ li{
 }
 .userHeader p{
 	padding-top: 20px;
-	font-size: 24px;
+	font-size: 28px;
 	color:#BCBCBC;
 }
 .userimg img{
 	width:85px;
 	height: 85px;
 }
-
+.userintroduction p{
+	font-size:16px;
+}
 .note-list{
 	list-style: none;
 	margin-top: 50px;

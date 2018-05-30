@@ -87,8 +87,8 @@ function userModel() {
     connection.end();
   };
 
-  this.settingUpdate = function (userID, nickname, gender, signUp, callback) {
-    var commonSql = 'Update user set nickname="' + nickname + '", sex="' + gender + '", qianming="' + signUp + '" where userID="' + userID + '"';
+  this.settingUpdate = function (userID, nickname, gender, signUp, userPtoUrl,callback) {
+    var commonSql = 'Update user set nickname="' + nickname + '", sex="' + gender + '", qianming="' + signUp + '", userPtoUrl="'+ userPtoUrl +'" where userID="' + userID + '"';
     connection.query(commonSql, function (err, result) {
       callback(err, result);
     });

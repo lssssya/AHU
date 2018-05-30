@@ -40,13 +40,24 @@ $('.rd-btn').on('click', function (event) {
     }
   });
 });
+
 $('.rd-del').on('click',function(event){
-  event.stopPropagation();
   event.preventDefault();
-  console.log($(this));
-
+  var recordID = $(this).parent().parent().parent().attr('id');
+  $.ajax({
+    type:'POST',
+    url: window.location.pathname + '/deleterecord',
+    data:{"recordID":recordID},
+    success:function(data){
+      if(data.ret_code==0){
+        alert("删除成功！");
+        location.reload();
+      }else{
+        alert("一个未知的错误");
+      }
+    }
+  })
 })
-
 
 $("#btn").click(function (event) {
   event.preventDefault();

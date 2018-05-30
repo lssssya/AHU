@@ -17,7 +17,7 @@ function homeModel(){
 
   this.identity=function(userID,callback){
     // get who you want to 
-    var sql = 'select userID,nickname,userPtoUrl from user where userID = "' + userID + '"';
+    var sql = 'select * from user where userID = "' + userID + '"';
     connection.query(sql, function (err, result) {
       callback(err, result);
     });

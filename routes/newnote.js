@@ -7,7 +7,7 @@ const checkLogin = require('../middlewares/checklogin').checkLogin;
 /* 
   上传文件的中间件以及修改文件名的模块
 */
-var multer = require('multer');
+const multer = require('multer');
 var createFolder = function (folder) {
   try {
     fs.accessSync(folder);
@@ -39,16 +39,9 @@ router.get('/', checkLogin, function (req, res) {
 var cpUpload = upload.fields([{ name: 'noteCover' }, { name: 'noteIntroduction' }, { name: 'noteTitle' }])
 
 router.post('/', checkLogin,cpUpload, function (req, res) {
-  console.log("check session: " + req.session.user.userID);
-  console.log(req.body.noteTitle);
-  console.log(req.body.noteIntroduction);
-  console.dir(req.files['noteCover'][0]);
   var noteTitle = req.body.noteTitle;
   var noteIntroduction = req.body.noteIntroduction;
   var noteCoverUrl = '/'+req.files['noteCover'][0].filename;
-  
-  console.log("check: " + noteCoverUrl);
-  
   var userID = req.session.user.userID; // session
   var noteModel = require('../database/noteModel');
   var db = new noteModel();
