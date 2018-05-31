@@ -52,6 +52,10 @@ li{
 }
 
 /*==以上是通用样式，结构的框架== */
+.form-group label{
+    font-size: 24px;
+    color:#BCBCBC;
+}
 
 .blank-list{
 	/* height 是一个伪处理 有时间优化整个背景的高度问题 */
