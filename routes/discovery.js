@@ -14,11 +14,11 @@ router.get('/', checkLogin, isYourself, function (req, res) {
   const model = require('../database/friendingModel');
   const db = new model();
   db.init();
-  db.rank(function (err,result) {  
-    if(err){
+  db.rank(function (err, result) {
+    if (err) {
       console.log(err);
-      res.json({"ret_code":2})
-    }else{
+      res.json({ "ret_code": 2 })
+    } else {
       dataPart = result.concat();
       res.render('discovery', {
         sessionpart: sessionPart,
@@ -26,10 +26,10 @@ router.get('/', checkLogin, isYourself, function (req, res) {
       });
     }
   })
-  
+
 });
 
-router.post('/', checkLogin, isYourself, function(req,res){
+router.post('/', checkLogin, isYourself, function (req, res) {
   const model = require('../database/friendingModel');
   const db = new model();
   var str = req.body.str;
@@ -38,31 +38,31 @@ router.post('/', checkLogin, isYourself, function(req,res){
   console.log(str);
   var userdata = new Array();
   var notedata = new Array();
-  var usercount,notecount;
+  var usercount, notecount;
   db.init();
-  db.searchclickforuser(str,function(err,result){
-    if(err){
+  db.searchclickforuser(str, function (err, result) {
+    if (err) {
       console.log(err);
-      res.json({"ret_code":2})
-    }else{
+      res.json({ "ret_code": 2 })
+    } else {
       console.log(result);
       userdata = result.concat();
-      usercount=result.length;
-      db.searchclickfornote(str,function(err,result){
+      usercount = result.length;
+      db.searchclickfornote(str, function (err, result) {
         if (err) {
           console.log(err);
           res.json({ "ret_code": 2 })
         } else {
           console.log(result.length);
-          
-          notecount=result.length;
+
+          notecount = result.length;
           notedata = result.concat();
           res.json({
             "usercount": usercount,
             "notecount": notecount,
-            "userdata":userdata,
-            "notedata":notedata,
-            "ret_code":0
+            "userdata": userdata,
+            "notedata": notedata,
+            "ret_code": 0
           })
           db.end();
         }

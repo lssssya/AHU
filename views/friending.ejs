@@ -15,7 +15,7 @@
     <hr class="cutLine" />
     <div class="body">
       <% if(datapart.length == 0){ %>
-        <div class="blank-list"> 还没有动态哦 </div>
+        <div class="blank-list"><img src="/img/empty-friending.gif"></div>
       <% }else{ %>	
         <ul class="p-ul">
         <% datapart.forEach(function(item){ %>
@@ -66,5 +66,6 @@
   </div>
 <script src="/js/friendingcomment.js"></script>
 <script src="/js/liked.js"></script>
+<script src="/js/select.js"></script>
 </body>
 </html>

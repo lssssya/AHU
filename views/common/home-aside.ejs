@@ -12,6 +12,12 @@
       <li role="presentation"><a href="/discovery">发现</a></li>
       <li role="presentation"><a href="/setting/<%= data.userID %>">设置</a></li>
     </ul>
-    <button id="logout" class="btn btn-danger btn-block">退出登录</button>
+    <button id="logout" class="btn btn-danger btn-block" onclick="logout()" >退出登录</button>
   </div>			
 </div>
+<script>
+  function logout(){
+    location.href="/logout";
+    alert("登出成功！")
+  }
+</script>

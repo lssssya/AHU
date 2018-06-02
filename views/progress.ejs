@@ -15,7 +15,7 @@
     <div class="body">
 	 <!--内容部分!-->
 		<% if(datapart.length == 0){ %>
-		<div class="blank-list"> there is no progress here </div>
+		<div class="blank-list"><img src="/img/empty-progressinhome.gif"></div>
 		<% }else{ %>	
 		<ul class="p-ul">
 		<% datapart.forEach(function(item){ %>
@@ -45,22 +45,6 @@
 				</div>
 				<div class="r-items-foot">
 				<hr class="cutLine" />
-				<% if(check) {%>	
-				<div class="items-info"  >
-					赞&nbsp;&nbsp;</a><span><%= item.recordliked %></span>
-					<a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordcomment %></span>
-					<a class="rd-del" style="float:right;margin-right:10px;">删除</a>
-				</div>
-				<div class="commentbox" id="<%= item.recordID %>commentbox" >
-					<div class="panel panel-default">
-						<ul class="list-group" id="ul-cmt">
-							<% item.comment.forEach(function(item){ %>
-								<li class="list-group-item"><a href="/home/<%= item.userID%>/notelist"><%= item.nickname %></a><span>&nbsp;:&nbsp;<%= item.comment %></span></li>
-							<%}); %>
-						</ul>
-					</div>
-				</div>
-				<% }else{ %>
 				<div class="items-info"  >
 					<a class="rd-lk">赞&nbsp;&nbsp;</a><span><%= item.recordliked %></span>
 					<a class="rd-cmt">评论&nbsp;&nbsp;</a><span><%= item.recordcomment %></span>
@@ -80,7 +64,6 @@
 						</form>
 					</div>
 				</div>
-				<% }; %>
 			</li>
 		<%});%>
 	  </ul>

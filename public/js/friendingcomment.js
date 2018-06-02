@@ -22,7 +22,7 @@ $('.rd-btn').on('click', function (event) {
   };
   $.ajax({
     type: 'POST',
-    url: '/friending/addcomment',   //  借用了friending 的评论功能
+    url: '/friending/addcomment', 
     data: data,
     success: function (data) {
       if (data.ret_code === 0) {

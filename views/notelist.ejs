@@ -11,12 +11,12 @@
 	<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
 	<!--右边下部分，网站的主体页面-->
   <div class="main">
-    <%- include('common/home-header.ejs',{data:userpart,check:check,checkrelationship:checkrelationship }) -%>
+		<%- include('common/home-header.ejs',{data:userpart,check:check,checkrelationship:checkrelationship }) -%>
     <div class="body">
       <!--内容部分!-->
       <div class="notelist">
         <% if(datapart.length == 0){ %>
-						<div class="blank-list"> there is no note here </div>
+						<div class="blank-list"><img src="/img/empty-note.gif"></div>
 					<% }else{ %>
           <ul class="note-list">
             <% datapart.forEach(function(item){ %>

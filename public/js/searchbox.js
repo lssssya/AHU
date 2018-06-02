@@ -26,7 +26,7 @@ $('#searchbtn').on('click', function (event) {
     data: data,
     success: function (data) {
       if (data.usercount == 0) {
-        usertext = '<div class="blank-list">没有搜索到用户</div>'
+        usertext = '<div class="blank-list"><img src="/img/empty-searchuser" ></div>'
       } else {
         usertext = '<ul class="userlist">';
         data.userdata.forEach(function (item) {
@@ -35,7 +35,7 @@ $('#searchbtn').on('click', function (event) {
         usertext += '</ul>';
       };
       if (data.notecount == 0) {
-        notetext = '<div class="blank-list">没有搜索到记本</div>'
+        notetext = '<div class="blank-list"><img src="/img/empty-searchnote" ></div>'
       } else {
         notetext = '<div class="notelist"><ul class="note-list">';
         data.notedata.forEach(function (item) {

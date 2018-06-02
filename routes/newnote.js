@@ -50,7 +50,7 @@ router.post('/', checkLogin,cpUpload, function (req, res) {
     console.log(userID);
     if (err) {
       console.log(err);
-      res.json({ "ret_code": 2 });
+      res.json({ "ret_code": 2 ,"ret_msg": "创建失败"});
     }
     res.json({ "ret_code": 0, "ret_msg": "创建记本成功", "userID": userID});
   });

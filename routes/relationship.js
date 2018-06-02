@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/follow/user', function (req, res) {
+const checkLogin = require('../middlewares/checklogin').checkLogin;
+
+router.post('/follow/user',checkLogin, function (req, res) {
   var userModel = require('../database/userModel');
   var database = new userModel();
   database.init();
@@ -14,7 +16,7 @@ router.post('/follow/user', function (req, res) {
     }
   });
 });
-router.post('/follow/note', function (req, res) {
+router.post('/follow/note',checkLogin, function (req, res) {
   var userModel = require('../database/userModel');
   var database = new userModel();
   database.init();
@@ -29,7 +31,7 @@ router.post('/follow/note', function (req, res) {
 });
 
 
-router.post('/unfollow/user',function(req,res){
+router.post('/unfollow/user',checkLogin,function(req,res){
   var userModel = require('../database/userModel');
   var database = new userModel();
   database.init();
@@ -43,7 +45,7 @@ router.post('/unfollow/user',function(req,res){
   });
 })
 
-router.post('/unfollow/note',function(req,res){
+router.post('/unfollow/note',checkLogin,function(req,res){
   var userModel = require('../database/userModel');
   var database = new userModel();
   database.init();

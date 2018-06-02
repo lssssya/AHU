@@ -1,10 +1,8 @@
 module.exports = {
   isYourself: function isYourself(req, res, next) {
     if (parseInt(req.session.user.userID) != parseInt(req.params.userID)) {
-      console.log('not you');
       req.isyourself = 0;
     } else {
-      console.log('is you')
       req.isyourself = 1;
     }
     next();
@@ -22,10 +20,8 @@ module.exports = {
           return res.redirect('back');//控制记本的路由
         }
         if (parseInt(result[0].userID) == parseInt(req.session.user.userID)) {
-          console.log('is your note');
           req.isyournote = 1;
         } else {
-          console.log('is not your note');
           req.isyournote = 0;
         }
         db.end();
@@ -69,7 +65,5 @@ module.exports = {
       next();
     })
   },
-
-
 
 }

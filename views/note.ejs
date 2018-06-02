@@ -29,10 +29,10 @@
         <hr class="cutLine" />
         <div class="note-detail-content">
           <ul>
-            <li>进展<span>&nbsp;&nbsp;<%= notepart.recordcount %></span></li>
-            <li>关注<span>&nbsp;&nbsp;<%= notepart.followcount %></span></li>
-            <li>点赞<span>&nbsp;&nbsp;<%= notepart.likedcount %></span></li>
-            <li>评论<span>&nbsp;&nbsp;<%= notepart.commentcount %></span></li>
+            <li>进展&nbsp;&nbsp;<span><%= notepart.recordcount %></span></li>
+            <li>关注&nbsp;&nbsp;<span><%= notepart.followcount %></span></li>
+            <li >点赞&nbsp;&nbsp;<span class="findliked"><%= notepart.likedcount %></span></li>
+            <li>评论&nbsp;&nbsp;<span><%= notepart.commentcount %></span></li>
           </ul>
         </div>
         <hr class="cutLine" />
@@ -63,7 +63,7 @@
         <% };%>
         <div class="note-content">
           <% if(recordpart.length == 0){ %>
-						<div class="blank-list" style="margin-top:15px;"> there is no record here </div>
+						<div class="blank-list" ><img src="/img/empty-progressinnote.gif"></div>
 					<% }else{ %>	
           <ul class="p-ul" id="<%= notepart.userID %>">
             <% recordpart.forEach(function(item){ %>
@@ -110,7 +110,6 @@
 </body>
 <script src="/js/noteoptions.js"></script>
 <script src="/js/follownoteclick.js"></script>
-<script src="/js/friendingcomment.js"></script>
 <script src="/js/liked.js"></script>
 <script src="/js/back.js"></script>
 </html>

@@ -59,11 +59,12 @@ li{
 
 .blank-list{
 	/* height 是一个伪处理 有时间优化整个背景的高度问题 */
-	height: 300px;
-	color:#BCBCBC;
-	font-size: 30px;
 	text-align: center;
-	padding-top: 70px;
+	padding-top:70px;
+}
+.blank-list img{
+	width:100%;
+	max-width: 630px;
 }
 
 

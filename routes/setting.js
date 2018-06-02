@@ -8,35 +8,44 @@ const isYourself = require('../middlewares/isyou').isYourself;
 
 var multer = require('multer');
 var createFolder = function (folder) {
-  try {
-    fs.accessSync(folder);
-  } catch (e) {
-    fs.mkdirSync(folder);
-  }
+    try {
+        fs.accessSync(folder);
+    } catch (e) {
+        fs.mkdirSync(folder);
+    }
 };
 var uploadFolder = './uploads/';
 createFolder(uploadFolder);
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadFolder);
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname+'-'+ Date.now()+'.jpg');
-  }
+    destination: function (req, file, cb) {
+        cb(null, uploadFolder);
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + '.jpg');
+    }
 });
 var upload = multer({ storage: storage });
 
 var cpUpload = upload.fields([{ name: 'nickname' }, { name: 'sex' }, { name: 'qianming' }, { name: 'userPtoUrl' }])
-router.post('/:userID', checkLogin, isYourself,cpUpload, function (req, res) {
+router.post('/:userID', checkLogin, isYourself, cpUpload, function (req, res) {
+    var userPtoUrl, sex;
+    if (req.files['userPtoUrl'] == undefined) {
+        userPtoUrl = req.session.user.userPtoUrl;
+    } else {
+        userPtoUrl = '/' + req.files['userPtoUrl'][0].filename;
+    };
+    if (req.body.sex === "undefined") {
+        sex = "";
+    } else {
+        sex = req.body.sex;
+    };
     var nickname = req.body.nickname;
     var userID = req.session.user.userID;
-    var sex = req.body.sex;
     var signUp = req.body.qianming;
-    var userPtoUrl = '/'+req.files['userPtoUrl'][0].filename;
     var userModel = require('../database/userModel');
     var db = new userModel();
     db.init();
-    db.settingUpdate(userID, nickname, sex, signUp, userPtoUrl,function (err, result) {
+    db.settingUpdate(userID, nickname, sex, signUp, userPtoUrl, function (err, result) {
         if (err) {
             console.log(err);
             res.json({ "ret_code": 1, "ret_msg": "提交失败" });

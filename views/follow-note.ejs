@@ -18,12 +18,12 @@
 	      <div class="follow-header">
 	      	<ul class="nav nav-pills">
 	  				<li><a href="/home/<%= userpart.userID%>/follow/user">用户</a></li>
-	    			<li><a href="/home/<%= userpart.userID%>/follow/note">记本</a></li>
+	    			<li class="active"><a href="/home/<%= userpart.userID%>/follow/note">记本</a></li>
 	    		</ul>
 	    	</div>
 				<div class="notelist">
 					<% if(datapart.length == 0){ %>
-						<div class="blank-list"> there is no note here </div>
+						<div class="blank-list"><img src="/img/empty-follownote.gif"></div>
 					<% }else{ %>
 						<ul class="note-list">
 							<% datapart.forEach(function(item){ %>						

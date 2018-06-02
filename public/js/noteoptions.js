@@ -14,7 +14,6 @@ $('.rd-btn').on('click', function (event) {
   var comment = $(this).prev().val();
   var recordID = $(this).parent().parent().parent().parent().parent().attr('id');//获得当前评论中 record的ID 
   var userID = $(this).parent().parent().parent().parent().parent().parent().attr('id');
-  alert(userID);
   var ul = $(this).parent().parent().prev().find('#ul-cmt');
   var data = {
     "comment": comment,
@@ -84,7 +83,8 @@ $("#deletenote").click(function (event) {
     success:function(data){
       if(data.ret_code==0){
         alert("删除记本成功！");
-        self.location = document.referrer;//返回前一页并且刷新
+        // self.location = document.referrer;//返回前一页并且刷新
+        location.href="/home/"+data.userID+"/notelist";
       }
     }
   })

@@ -33,6 +33,12 @@ function insertcomment(arr1, arr2) { //把评论内容内嵌到每一个record�
   })
   return arr1;
 };
+function adjusttime(arr) {
+  arr.map(function (item) {
+    return item.recordtime = item.recordtime.toLocaleString();
+  })
+  return arr;
+}
 
 router.get('/:noteID', checkLogin, isYourNote, isYourFollowNote, function (req, res) {
   var noteID = parseInt(req.params.noteID);
@@ -68,8 +74,10 @@ router.get('/:noteID', checkLogin, isYourNote, isYourFollowNote, function (req, 
               notePart['recordcount'] = recordcount;
               console.log(notePart);
               recordArray = result.concat();
+              recordArray = adjusttime(recordArray);
               recordArray = insertliked(recordArray, likedArray);
               //这里挖个坑，要把时间格式调整一下
+
 
               db.searchComment(noteID, function (err, result) {
                 if (err) {
@@ -126,14 +134,14 @@ router.post('/:noteID/addrecord', checkLogin, isYourNote, function (req, res) {
     });
 });
 
-router.post('/:noteID/delete',checkLogin,isYourNote,function(req,res){
+router.post('/:noteID/delete', checkLogin, isYourNote, function (req, res) {
   db.init();
-  db.deletenote(req.params.noteID,function(err,result){
-    if(err){
+  db.deletenote(req.params.noteID, function (err, result) {
+    if (err) {
       console.log(err);
-      res.json({"ret_code":2})
-    }else{
-      res.json({"ret_code":0})
+      res.json({ "ret_code": 2 })
+    } else {
+      res.json({ "ret_code": 0, "userID": req.session.user.userID });
     }
   });
 });

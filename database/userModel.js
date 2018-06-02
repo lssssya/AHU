@@ -79,7 +79,7 @@ function userModel() {
     });
     connection.end();
   };
-  this.select = function (username, pw, callback) {
+  this.select = function (username, callback) {
     var userFindSql = 'select * from user where username = "' + username + '" ';
     connection.query(userFindSql, function (err, result) {
       callback(err, result);

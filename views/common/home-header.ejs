@@ -2,7 +2,13 @@
   <div class="userimg">
     <img src="<%= data.userPtoUrl %>">
   </div>
-  <p><%= data.nickname %><span><%= data.sex%></span></p>
+  <% if(data.sex == "男"){ %>
+  <p><%= data.nickname %><span><img src="/img/male-b.png"></span></p>
+  <% }else if(data.sex == "女") { %>
+  <p><%= data.nickname %><span><img src="/img/female-b.png"></span></p>
+  <%}else{%>
+  <p><%= data.nickname %></p>
+  <% };%>
   <div class="userintroduction">
     <% if(data.qianming){%>
     <p><%= data.qianming %></p>
@@ -29,3 +35,4 @@
   </ul>
 </div>
 <script src="/js/followuserclick.js"></script>
+<script src="/js/select.js"></script>
