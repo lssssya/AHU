@@ -62,8 +62,19 @@ router.get('/:userID', checkLogin, isYourself, function (req, res) {
         nickname: req.session.user.nickname,
         userPtoUrl: req.session.user.userPtoUrl
     };
-    res.render('setting', {
-        sessionpart: sessionPart
-    });
+    var dataPart=new Array();;
+    var userModel = require('../database/userModel');
+    var db = new userModel();
+    db.init();
+    // 借用一下这个函数用来查询user 的信息
+    db.checkexist(req.session.user.userID, function (err, result) {
+        dataPart['qianming'] = result[0].qianming;
+        dataPart['sex'] = result[0].sex;
+        res.render('setting', {
+            sessionpart: sessionPart,
+            datapart: dataPart
+        });
+    })
+
 });
 module.exports = router;

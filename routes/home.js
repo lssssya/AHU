@@ -68,6 +68,13 @@ function insertcomment(arr1, arr2) { //把评论内容内嵌到每一个record�
   })
   return arr1;
 };
+function adjusttime(arr) {
+  arr.map(function (item) {
+    return item.recordtime = item.recordtime.toLocaleString();
+  })
+  return arr;
+}
+
 router.get('/:userID/progress', checkLogin, isYourself, isYourfriend, function (req, res) {
   var ID = parseInt(req.params.userID);
   var userPart,// 将模版的数据块分为3个部分
@@ -105,6 +112,7 @@ router.get('/:userID/progress', checkLogin, isYourself, isYourfriend, function (
               checkrelationship: req.isyourfriend
             });
           } else {
+            dataPart = adjusttime(dataPart);          
             db.searchliked(temparr, function (err, result) {
               if (err) {
                 console.log(err);

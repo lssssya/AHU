@@ -10,6 +10,9 @@ body{
 	height: 100%;
 	overflow: auto;
 }
+body input{
+	background-color: #515151;
+}
 li{
 	list-style: none;
 }
@@ -50,6 +53,10 @@ li{
 	padding-left: 80px;
 	padding-right: 80px;
 }
+
+
+
+
 
 /*==以上是通用样式，结构的框架== */
 .form-group label{

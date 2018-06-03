@@ -26,13 +26,13 @@ $("#login").click(function (event) {
   });
   return false;
 });
-function passwordControl() {
-  if ($("#password").val().length < 6) {
-    alert("密码不少于6位");
-    $("#password").val("");
-    $("#password").focus();
-  }
-}
+// function passwordControl() {
+//   if ($("#password").val().length < 6) {
+//     alert("密码不少于6位");
+//     $("#password").val("");
+//     $("#password").focus();
+//   }
+// }
 $("#register").click(function (event) {
   event.preventDefault();
   var nickname = $("#nickname").val();
@@ -47,6 +47,10 @@ $("#register").click(function (event) {
     $("#username").focus();
   } else if (password == "") {
     alert("密码不能为空")
+    $("#password").focus();
+  } else if (password.length < 6) {
+    alert("密码不少于6位");
+    $("#password").val("");
     $("#password").focus();
   } else {
     $("#register").attr('disabled', true);
@@ -67,6 +71,5 @@ $("#register").click(function (event) {
       }
     });
   }
-
   return false;
 });

@@ -30,6 +30,13 @@ function insertcomment(arr1, arr2) { //把评论内容内嵌到每一个record�
   })
   return arr1;
 };
+function adjusttime(arr) {
+  arr.map(function (item) {
+    return item.recordtime = item.recordtime.toLocaleString();
+  })
+  return arr;
+}
+
 
 router.post('/addcomment', checkLogin, function (req, res) {
   var noteModel = require('../database/noteModel');
@@ -83,6 +90,7 @@ router.get('/:userID', checkLogin, isYourself, function (req, res) {
           datapart: recordArray
         });
       } else {
+        recordArray = adjusttime(recordArray);
         db.recordcomment(temparr, function (err, result) {
           if (err) {
             console.log(err);
