@@ -4,8 +4,8 @@ function typeControl(file) {
     alert("非图片文件，请重新选择")
     $("#userPtoUrl").val("");
   }
-  if (info.size > 10 * 1024 * 1024) {
-    alert("上传的图片的大于10M,请重新选择");
+  if (info.size > 1 * 1024 * 1024) {
+    alert("上传的图片的大于1M,请重新选择");
     $("#userPtoUrl").val("");
   }
 };
@@ -15,34 +15,43 @@ $("#confirSet").click(function (event) {
   var nickname = $("#nickname").val();
   var gender = $('input:radio[name="sex"]:checked').val();
   var signUp = $("#signUp").val();
-  var formData = new FormData();
-  formData.append('nickname', nickname);
-  formData.append('sex', gender);
-  formData.append('qianming', signUp);
-  formData.append('userPtoUrl', $("#userPtoUrl")[0].files[0]);
-  $.ajax({
-    type: 'POST',
-    url: window.location.pathname,
-    async: false,
-    data: formData,
-    processData: false,
-    contentType: false,
-    success: function (data) {
-      if (data.ret_code === 0) {
-        alert("修改成功！");
-      };
-      if (data.ret_code === 1) {
-        alert("修改失败！");
-      };
-    }
-  });
+  if (nickname == "") {
+    alert("昵称不能为空哦");
+    $("#userPtoUrl").focus();
+  } else {
+    var formData = new FormData();
+    formData.append('nickname', nickname);
+    formData.append('sex', gender);
+    formData.append('qianming', signUp);
+    formData.append('userPtoUrl', $("#userPtoUrl")[0].files[0]);
+    $.ajax({
+      type: 'POST',
+      url: window.location.pathname,
+      async: false,
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (data) {
+        if (data.ret_code === 0) {
+          alert("修改成功！");
+        };
+        if (data.ret_code === 1) {
+          alert("修改失败！");
+        };
+      }
+    });
+  }
   return false;
 });
+
+
+
 function setnull() {
   $("#password").val("");
   $("#password1").val("");
   $("#password2").val("");
 };
+
 $("#submit").click(function (event) {
   event.preventDefault();
   var password = $("#password").val();
@@ -60,7 +69,7 @@ $("#submit").click(function (event) {
       if (password1 != password2) {
         alert("两次输入密码必须一致");
         $("#password2").val("");
-        $("#password2").focus();  
+        $("#password2").focus();
       } else {
         $.ajax({
           type: 'POST',

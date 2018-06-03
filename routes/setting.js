@@ -33,6 +33,7 @@ router.post('/:userID', checkLogin, isYourself, cpUpload, function (req, res) {
         userPtoUrl = req.session.user.userPtoUrl;
     } else {
         userPtoUrl = '/' + req.files['userPtoUrl'][0].filename;
+        req.session.user.userPtoUrl = userPtoUrl;
     };
     if (req.body.sex === "undefined") {
         sex = "";

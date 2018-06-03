@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
   secret: '123456',
-  cookie: { maxAge: 60 * 1000 * 60 *24 },// 单位毫秒 所以是一个小时
+  cookie: { maxAge: 60 * 1000 * 60 },// 单位毫秒 所以是一个小时
   // store: new FileStore(), // 本地存储session（文本文件，也可以选择其他store，比如redis的）
   saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
   resave: true // 是否每次都重新保存会话，建议false
@@ -103,5 +103,5 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.listen(3000);
-console.log('You are listening to port 3000');
+app.listen(80);
+console.log('You are listening to port 80');

@@ -20,7 +20,7 @@ router.post('/', urlencodedParser, function (req, res, next) {
 	db.select(username, function (err, result) {
 		if (err) {
 			console.log(err);
-			res.json({ "ret_code": 2, "ret_msg": "登陆失败" });
+			res.json({ "ret_code": 2, "ret_msg": "登录失败" });
 		} else if (result[0] == undefined) {
 			res.json({ "ret_code": 3, "ret_msg": "不存在该用户" });
 		} else if (result[0].password === encrypt_pw) {
@@ -31,7 +31,7 @@ router.post('/', urlencodedParser, function (req, res, next) {
 			};
 			req.session.user = data;
 			console.log(req.session.user);
-			res.json({ "ret_code": 0, "ret_msg": "登陆成功", "userID": result[0].userID });
+			res.json({ "ret_code": 0, "ret_msg": "登录成功", "userID": result[0].userID });
 		}
 		else {
 			res.json({ "ret_code": 1, "ret_msg": "帐号密码错误" });
