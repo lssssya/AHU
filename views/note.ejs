@@ -9,15 +9,20 @@
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs',{data:notepart}) -%>
+	<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
 	<!--右边下部分，网站的主体页面-->
   <div class="main">
 		<div class="return-btn">
 		  <img src="/img/return-lg.jpg" id="btnReturn">
 		</div>
-		<div class="body">
+		<div class="body" style="width: 880px;">
       <div class="note-title">
         <%= notepart.noteTitle %>
+      </div>
+      <div class="panel panel-default"  style="width:630px; background-color: #363636;border: #515151;color: aliceblue">
+        <div class="panel-body">
+          简介：<%= notepart.noteIntroduction %>
+        </div>
       </div>
       <div class="note-detail" id="<%= notepart.noteID%>">
         <div class="note-detail-header">
@@ -25,6 +30,7 @@
         <div class="note-title"><%= notepart.noteTitle %></div>
         <% if(checknote){%>
         <button class="btn btn-danger" id="deletenote" style="margin-bottom:10px;"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除记本</button>
+        
         <%};%>
         </div>
         <hr class="cutLine" />
@@ -32,13 +38,18 @@
           <ul>
             <li>进展&nbsp;&nbsp;<span><%= notepart.recordcount %></span></li>
             <li>关注&nbsp;&nbsp;<span><%= notepart.followcount %></span></li>
-            <li >点赞&nbsp;&nbsp;<span class="findliked"><%= notepart.likedcount %></span></li>
+            <li>点赞&nbsp;&nbsp;<span class="findliked"><%= notepart.likedcount %></span></li>
             <li>评论&nbsp;&nbsp;<span><%= notepart.commentcount %></span></li>
           </ul>
         </div>
         <hr class="cutLine" />
         <div class="note-detail-foot">
-        <%= notepart.noteIntroduction %>
+          <div class="userimg">
+            <img src="<%= notepart.userPtoUrl %>">
+          </div>
+          <div class="user-nick" style="margin-top:15px; font-size: 20px; color: aliceblue">
+            主人：<a href="/home/<%= notepart.userID %>/notelist"><%= notepart.nickname%></a>
+          </div>
         </div>
       </div>
         <% if(checknote){%>

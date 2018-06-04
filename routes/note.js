@@ -46,6 +46,11 @@ router.get('/:noteID', checkLogin, isYourNote, isYourFollowNote, function (req, 
   var likedArray = new Array();
   var recordArray = new Array();
   var commentArray = new Array();
+  var sessionPart = {
+    userID: req.session.user.userID,
+    nickname: req.session.user.nickname,
+    userPtoUrl: req.session.user.userPtoUrl
+  };
   var notePart, recordPart = new Array();
   db.searchNote(noteID, function (err, result) {
     if (err) {
@@ -76,9 +81,6 @@ router.get('/:noteID', checkLogin, isYourNote, isYourFollowNote, function (req, 
               recordArray = result.concat();
               recordArray = adjusttime(recordArray);
               recordArray = insertliked(recordArray, likedArray);
-              //这里挖个坑，要把时间格式调整一下
-
-
               db.searchComment(noteID, function (err, result) {
                 if (err) {
                   res.json({ "ret_code": 2 });
@@ -92,6 +94,7 @@ router.get('/:noteID', checkLogin, isYourNote, isYourFollowNote, function (req, 
                     checknote: req.isyournote,
                     checkfollow: req.isyourfollownote,
                     notepart: notePart,
+                    sessionpart:sessionPart,
                     recordpart: recordPart
                   });
                 }

@@ -29,7 +29,7 @@ function noteModel(){
   }
 
   this.searchNote = function(noteID,callback){
-    var sql = 'select * from note where noteID = "'+ noteID + '"';
+    var sql = 'select note.*,user.userID,user.nickname,user.userPtoUrl from note join user on user.userID=note.userID where noteID = "'+ noteID + '"';
     connection.query(sql,function (err,result) {
       callback(err,result);      
     });

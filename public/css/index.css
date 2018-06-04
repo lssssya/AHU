@@ -1,13 +1,14 @@
 html{
-    overflow:hidden;
-		height:100%;
-	}
+	overflow-y: hidden;
+    overflow-x:auto;
+	height:100%;
+}
 body{
 	padding: 0;
 	margin: 0;
 	width: 100%;
 	height: 100%;
-	overflow: auto;
+
 }
 body input{
 	background-color: #515151;
@@ -48,10 +49,11 @@ li{
 	background-color:#282828;
 	margin-left:200px;
 	height:100%;
-	min-width: 1000px;
-	overflow: auto;
+	min-width: 1100px;
 	padding-left: 80px;
 	padding-right: 80px;
+	overflow-y:auto;
+	overflow-x:hidden;
 }
 
 
@@ -67,7 +69,7 @@ li{
 .blank-list{
 	/* height 是一个伪处理 有时间优化整个背景的高度问题 */
 	text-align: center;
-	padding-top:70px;
+	margin-top:70px;
 }
 .blank-list img{
 	width:100%;
@@ -246,19 +248,20 @@ li{
 
 /* note  */
 .note-title{
-	height: 120px;
+	height: 100px;
 	font-size: 36px;
 	color:#199ED8;
 	padding-top: 30px;
 }
 .note-detail{
-	position: absolute;
-	left: 940px;
+	position: relative;
+	float: right;
 	border: 1px #FFFFFF solid;
 	width:200px;
 	background-color: #363636;
 }
 .note-body{
+	position: relative;
 	width:630px;
 	background-color: #363636;
 }
@@ -328,6 +331,7 @@ li{
 }
 .note-detail-header .note-title{
 	padding-top: 10px;
+	margin-bottom: 10px;
 	height: 50px;
 	font-size: 24px;
 	color:#199ED8;
@@ -346,12 +350,11 @@ li{
 	margin-bottom: 5px;
 }
 .note-detail-foot{
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding:5px 10px;
-	font-size: 16px;
-	color: #BCBCBC;
+	padding-top: 30px;
+	margin-bottom: 30px;
+	text-align: center;
 }
+
 
 /* friending */
 .page-title{
