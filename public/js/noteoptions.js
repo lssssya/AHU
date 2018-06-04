@@ -28,7 +28,7 @@ $('.rd-btn').on('click', function (event) {
       if (data.ret_code === 0) {
         alert('评论成功！');
         var newLi = document.createElement('li');
-        var text = '<li class="list-group-item"><a href="/home/' + data.userID + '/notelist">' + data.nickname + '</a><span>&nbsp;:&nbsp;' + comment + '</span></li>';
+        var text = '<li class="list-group-item"><a href="/home/' + data.userID + '/notelist">' + data.nickname + '</a><span>&nbsp;:&nbsp;' + comment.val() + '</span></li>';
         newLi.innerHTML = text;
         setTimeout(function () {
           ul.append(newLi);
