@@ -3,12 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>不忘</title>
+	<link rel="icon" href="/img/favicon.ico" mce_href="/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="/css/index.css">
 	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
 	<script src="/lib/jquery/jquery.js"></script>
 </head>
 <body>
-	<%- include('common/home-aside.ejs',{data:data}) -%>
+	<%- include('common/home-aside.ejs',{data:sessionpart}) -%>
 	<!--右边下部分，网站的主体页面-->
   <div class="main">
 		<div class="return-btn">
@@ -41,7 +42,7 @@
     function keyUP(t){
       var len = $(t).val().length;
       if(len > 100){
-        $(t).val($(t).val().substring(0,140));
+        $(t).val($(t).val().substring(0,100));
       }
     }
 </script>

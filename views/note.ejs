@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>不忘</title>
+  <title>不忘</title>
+  <link rel="icon" href="/img/favicon.ico" mce_href="/img/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="/css/index.css">
 	<link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
 	<script src="/lib/jquery/jquery.js"></script>
@@ -23,7 +24,7 @@
           <img src=<%= notepart.noteCoverUrl %>>
         <div class="note-title"><%= notepart.noteTitle %></div>
         <% if(checknote){%>
-        <button class="btn btn-danger" id="deletenote" style="margin-bottom:10px;">删除记本</button>
+        <button class="btn btn-danger" id="deletenote" style="margin-bottom:10px;"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除记本</button>
         <%};%>
         </div>
         <hr class="cutLine" />
@@ -46,9 +47,9 @@
             <form>	
               <div class="form-group ">
                 <label for="addRecord">分享现在的心情</label>
-                <textarea rows="4" cols="30" class="form-control" id="addRecord" placeholder="+ 添加"></textarea>
+                <textarea rows="4" cols="30" class="form-control" id="addRecord" placeholder="   + 添加"></textarea>
               </div>
-              <button type="submit" class="btn btn-primary btn-lg" id="btn">发布</button>
+              <button type="submit" class="btn btn-info btn-lg" id="btn"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;发布</button>
             </form>
           </div>
         <% }else{ %>

@@ -1,3 +1,4 @@
+
 .form-group label{
     font-size: 20px;
     color:#BCBCBC;
@@ -13,6 +14,19 @@
     font-size: 24px;
     color:#BCBCBC;
 }
+
+.loginform button{
+	width: 100%;
+}
+
+.loginform{
+    
+    position: relative;
+    float: left;
+    width: 350px;
+    margin: 60px;
+}
+
 
 textarea {
     font-family: inherit;

@@ -11,12 +11,12 @@ $('.rd-btn').on('click', function (event) {
   event.preventDefault();
   var dom = $(this).parent().parent().parent().prev().find('.rd-cmt').next();
   var commentcount = parseInt(dom.html());
-  var comment = $(this).prev().val();
+  var comment = $(this).prev();
   var recordID = $(this).parent().parent().parent().parent().parent().attr('id');//获得当前评论中 record的ID 
   var userID = $(this).parent().parent().parent().parent().parent().find('.user-info').attr('id');
   var ul = $(this).parent().parent().prev().find('#ul-cmt');
   var data = {
-    "comment": comment,
+    "comment": comment.val(),
     "recordID": recordID,
     "userID": userID
   };
@@ -32,6 +32,7 @@ $('.rd-btn').on('click', function (event) {
         newLi.innerHTML = text;
         setTimeout(function () {
           ul.append(newLi);
+          comment.val("");
           commentcount++;//自加1
           dom.html(commentcount);
         }, 1000);// 假装上传且实时更新 

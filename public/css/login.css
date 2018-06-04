@@ -52,14 +52,11 @@ body{
 	right: 0;
 }
 .body {
-	top:180px;
-	left:200px;
 	bottom: 0;
 	right: 0;
-	height: 600px;
-	padding-left:400px;
+	padding-left:200px;
 	padding-top: 100px;
-	position: absolute;
+	position: relative;
 }
 .loginTitle{
 	padding-left: 50px;
@@ -87,6 +84,12 @@ body{
 .loginform button{
 	width: 100%;
 }
+
 .loginform{
-	width: 300px;
+    
+    position: relative;
+    float: left;
+    width: 350px;
+    margin: 60px;
 }
+

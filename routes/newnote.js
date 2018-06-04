@@ -22,39 +22,40 @@ var storage = multer.diskStorage({
     cb(null, uploadFolder);
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname+'-'+ Date.now()+'.jpg');
+    cb(null, file.fieldname + '-' + Date.now() + '.jpg');
   }
 });
 var upload = multer({ storage: storage });
 
 
 router.get('/', checkLogin, function (req, res) {
-  var userID = 1 ; //session
-  var data = {
-    userID: userID,
+  var sessionPart = {
+    userID: req.session.user.userID,
+    nickname: req.session.user.nickname,
+    userPtoUrl: req.session.user.userPtoUrl
   };
-  res.render('newnote', { data: data });
+  res.render('newnote', { sessionpart: sessionPart });
 });
 
 var cpUpload = upload.fields([{ name: 'noteCover' }, { name: 'noteIntroduction' }, { name: 'noteTitle' }])
 
-router.post('/', checkLogin,cpUpload, function (req, res) {
+router.post('/', checkLogin, cpUpload, function (req, res) {
   var noteTitle = req.body.noteTitle;
   var noteIntroduction = req.body.noteIntroduction;
-  var noteCoverUrl = '/'+req.files['noteCover'][0].filename;
+  var noteCoverUrl = '/' + req.files['noteCover'][0].filename;
   var userID = req.session.user.userID; // session
   var noteModel = require('../database/noteModel');
   var db = new noteModel();
   db.init();
-  db.newNote(userID,noteTitle,noteIntroduction,noteCoverUrl, function (err, result) {
+  db.newNote(userID, noteTitle, noteIntroduction, noteCoverUrl, function (err, result) {
     console.log(userID);
     if (err) {
       console.log(err);
-      res.json({ "ret_code": 2 ,"ret_msg": "创建失败"});
+      res.json({ "ret_code": 2, "ret_msg": "创建失败" });
     }
-    res.json({ "ret_code": 0, "ret_msg": "创建记本成功", "userID": userID});
+    res.json({ "ret_code": 0, "ret_msg": "创建记本成功", "userID": userID });
   });
-  
+
 });
 
 
