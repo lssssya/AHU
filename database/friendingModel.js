@@ -29,7 +29,7 @@ function friendingModel() {
   };
   this.recordlist = function (userID, callback) {
     // var sql = 'select note.noteTitle,record.* ,user.userID ,user.nickname, user.userPtoUrl from note,record,user where note.noteID=record.noteID and user.userID = record.userID and user.userID in (select user1ID from focuse_user where user2ID = "' + userID + '" )';
-    var sql = 'select note.noteTitle,record.* ,user.userID ,user.nickname, user.userPtoUrl from (record inner join note on note.noteID=record.noteID) inner join user on user.userID = record.userID where record.noteID in (select noteID from focuse_note where userID="'+userID+'") or user.userID in (select user1ID from focuse_user where user2ID = "' + userID + '" )';
+    var sql = 'select note.noteTitle,record.* ,user.userID ,user.nickname, user.userPtoUrl from (record inner join note on note.noteID=record.noteID) inner join user on user.userID = record.userID where record.noteID in (select noteID from focuse_note where userID="'+userID+'") or user.userID in (select user1ID from focuse_user where user2ID = "' + userID + '" ) order by record.recordtime DESC';
    
     connection.query(sql, function (err, result) {
       callback(err, result);

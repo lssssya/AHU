@@ -3,8 +3,10 @@ $('.rd-lk').on('click', function (event) {
   var dom = $(this.nextSibling);
   var likedcount = parseInt(dom.html());
   var recordID = $(this).parent().parent().parent().attr('id');
-  var allLikeddom,allLikedcount;
-  if(/\/note\/\w+/.test(window.location.pathname)){
+  var allLikeddom, allLikedcount;
+  var flag = 0;
+  if (/\/note\/\w+/.test(window.location.pathname)) {
+    flag = 1;
     allLikeddom = $(".findliked"); //span
     allLikedcount = parseInt(allLikeddom.html());
   }
@@ -17,8 +19,10 @@ $('.rd-lk').on('click', function (event) {
       if (data.ret_code === 0) {
         alert('点赞成功！');
         likedcount++;//自加1
-        allLikedcount++;
-        allLikeddom.html(allLikedcount);
+        if (flag == 1) {
+          allLikedcount++;
+          allLikeddom.html(allLikedcount);
+        }
         dom.html(likedcount);
       } else {
         alert('点赞重复！');
